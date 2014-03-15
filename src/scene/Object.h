@@ -8,13 +8,15 @@ typedef struct color {
 } Color;
 
 class Object {
+	Color _color;
 	Geometry * _geometry;
 
 public:
-	Color _color;
 
 	Object(Color * color, Geometry * geometry);
 	Object(float r, float g, float b, Geometry * geometry);
+
+	Color * getColor();
 
 	Point * checkIntersection(Ray * ray);
 };

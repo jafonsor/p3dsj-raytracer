@@ -16,6 +16,10 @@ Object::Object(float r, float g, float b, Geometry * geometry)
 	_color.b = b;
 }
 
+Color * Object::getColor() {
+	return &_color;
+}
+
 Point * Object::checkIntersection(Ray * ray) {
 	return _geometry->checkIntersection(ray);
 }
