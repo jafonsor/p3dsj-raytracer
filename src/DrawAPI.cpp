@@ -2,7 +2,8 @@
 #include <GL/glut.h> 
 #include <iostream> 
 #include <stdio.h> 
-#include "scene.h" 
+#include "scene/Scene.h" 
+#include "DrawAPI.h"
  
 #define MAX_DEPTH 6 
  
@@ -25,19 +26,19 @@ void reshape(int w, int h)
 // Draw function by primary ray casting from the eye towards the scene's objects 
 void drawScene() 
 { 
- raytraycer->drawScene();
+ raytracer->drawScene();
  printf("Terminou!\n"); 
 } 
 
-void drawPoint(float x, float y, float r, float g, float b) {
+void drawPoint(int x, int y, float r, float g, float b) {
  glBegin(GL_POINTS); 
- glColor3f(r, g, b; 
+ glColor3f(r, g, b); 
  glVertex2f(x, y); 
  glEnd(); 
  glFlush(); 
 }
  
-int drawScene(Raytracer * in_ratracer, int in_res_x, int in_res_y) 
+int RenderSCene(Raytracer * in_ratracer, int in_res_x, int in_res_y)
 { 
 
  raytracer = in_ratracer;

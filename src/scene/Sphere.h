@@ -5,7 +5,7 @@
 #include "Ray.h"
 #include<glm.hpp>
 
-class Sphere : Geometry {
+class Sphere : public Geometry {
 	glm::vec3 _center;
 	float _radius;
 

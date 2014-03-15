@@ -7,9 +7,9 @@ Sphere::Sphere(float x, float y, float z, float r)
 }
 
 Intersection * Sphere::checkIntersection(Ray * ray) {
-	float a = glm::dot(ray.direction,ray.direction);
-	float b = 2 * glm::dot(ray.direction, ray.origin);
-	float c = dot(ray.origin, ray.origin) - (_radius * _radius);
+	float a = glm::dot(ray->direction,ray->direction);
+	float b = 2 * glm::dot(ray->direction, ray->point);
+	float c = glm::dot(ray->point, ray->point) - (_radius * _radius);
 
 	float discriminant = b * b - 4 * a * c;
 	if(discriminant < 0) {
@@ -25,7 +25,7 @@ Intersection * Sphere::checkIntersection(Ray * ray) {
 	}
 
 	if(t0 > t1) {
-		t = t1
+		t = t1;
 	} else {
 		t = t0;
 	}
@@ -37,7 +37,7 @@ Intersection * Sphere::checkIntersection(Ray * ray) {
 	Intersection * result = new Intersection();
 	result->position      = ray->f(t);
 	result->normal        = result->position - _center;
-	result->object        = this;
+	result->object        = nullptr;
 	result->distanceToEye = t;
 	
 	return result;

@@ -36,6 +36,12 @@
     <ClInclude Include="src\scene\Intersection.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\DrawAPI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Raytracer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\scene\Object.cpp">
@@ -48,6 +54,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scene\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DrawAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Raytracer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lab3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

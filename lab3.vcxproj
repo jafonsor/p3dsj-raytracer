@@ -80,6 +80,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\DrawAPI.h" />
+    <ClInclude Include="src\Raytracer.h" />
     <ClInclude Include="src\scene\Camera.h" />
     <ClInclude Include="src\scene\Geometry.h" />
     <ClInclude Include="src\scene\Object.h" />
@@ -89,6 +91,9 @@
     <ClInclude Include="src\scene\Sphere.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\lab3.cpp" />
+    <ClCompile Include="src\DrawAPI.cpp" />
+    <ClCompile Include="src\Raytracer.cpp" />
     <ClCompile Include="src\scene\Camera.cpp" />
     <ClCompile Include="src\scene\Object.cpp" />
     <ClCompile Include="src\scene\Scene.cpp" />

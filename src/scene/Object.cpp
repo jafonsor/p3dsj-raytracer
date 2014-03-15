@@ -21,5 +21,7 @@ Color * Object::getColor() {
 }
 
 Intersection * Object::checkIntersection(Ray * ray) {
-	return _geometry->checkIntersection(ray);
+	Intersection * result = _geometry->checkIntersection(ray);
+	result->object = this;
+	return result;
 }

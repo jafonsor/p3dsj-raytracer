@@ -22,3 +22,11 @@ Intersection * Scene::checkIntersection(Ray * ray) {
 void Scene::addObject(Object * object) {
 	_objects.push_back(object);
 }
+
+void Scene::setCamera(Camera * camera) {
+	_camera = camera;
+}
+
+Camera *  Scene::getCamera() {
+	return _camera;
+}
