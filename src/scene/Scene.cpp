@@ -1,23 +1,24 @@
 #include "Scene.h"
+#include <float.h>
 
-Scene::Scene() {
-
-}
+Scene::Scene() : _objects() {}
 
 // If no intersection was found returns null
 Intersection * Scene::checkIntersection(Ray * ray) {
 	std::vector<Object*>::iterator it;
-	Point * intersectionPoint;
-	Intersection * result = 0;
+	Intersection * intersectionPoint;
+	Intersection * result = nullptr;
+	float minDist = FLT_MAX;
 	for(it = _objects.begin(); it != _objects.end(); it++) {
 		intersectionPoint = (*it)->checkIntersection(ray);
-		if(intersectionPoint && intersectionPoint  é o mais proximo) {
-			result = new Intersection((*it), intersectionPoint);
+		if(intersectionPoint != nullptr && intersectionPoint->distanceToEye < minDist) {
+			result = intersectionPoint;
+			minDist = result->distanceToEye;
 		}
 	}
 	return result;
 }
 
-void addObject(Object * object) {
+void Scene::addObject(Object * object) {
 	_objects.push_back(object);
 }

@@ -6,6 +6,6 @@ Sphere::Sphere(float x, float y, float z, float r)
 	// empty
 }
 
-Point * Sphere::checkIntersection(Ray * ray) {
+Intersection * Sphere::checkIntersection(Ray * ray) {
 	
 }

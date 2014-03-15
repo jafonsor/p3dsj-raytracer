@@ -1,11 +1,13 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-#include "Scene.h"
+#include "Intersection.h"
+#include "Ray.h"
 
 class Geometry {
 	// Returns null if the ray doesn't intersect the object
-	virtual Point * checkIntersection(Ray * ray);
+public:
+	virtual Intersection * checkIntersection(Ray * ray);
 };
 
 #endif

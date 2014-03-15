@@ -2,15 +2,17 @@
 #define SPHERE_H
 
 #include "Geometry.h"
+#include "Ray.h"
+#include<glm.hpp>
 
 class Sphere : Geometry {
-	Point _center;
+	glm::vec3 _center;
 	float _radius;
 
 public:
 	Sphere(float x, float y, float z, float r);
 	
-	Point * checkIntersection(Ray * ray);
+	Intersection * checkIntersection(Ray * ray);
 };
 
 #endif

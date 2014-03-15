@@ -80,6 +80,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\scene\Camera.h" />
+    <ClInclude Include="src\scene\Geometry.h" />
+    <ClInclude Include="src\scene\Object.h" />
+    <ClInclude Include="src\scene\Intersection.h" />
+    <ClInclude Include="src\scene\Ray.h" />
+    <ClInclude Include="src\scene\Scene.h" />
+    <ClInclude Include="src\scene\Sphere.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\scene\Camera.cpp" />
+    <ClCompile Include="src\scene\Object.cpp" />
+    <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\scene\Sphere.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

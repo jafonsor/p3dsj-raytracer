@@ -2,12 +2,8 @@
 #define SCENE_H
 
 #include "Object.h"
-
-// Information about an intersection
-typedef struct intersection {
-	Object * obj, // object that was intersected
-	Point  * pnt  // point of intersection
-} Intersection;
+#include <vector>
+#include "Intersection.h"
 
 class Scene {
 	std::vector<Object*> _objects;
