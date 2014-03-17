@@ -1,5 +1,6 @@
 #include"Raytracer.h"
 #include"DrawAPI.h"
+#include<iostream>
 
 Raytracer::Raytracer(int resX, int resY, Scene * scene) : _resX(resX), _resY(resY), _scene(scene) { }
 
@@ -14,6 +15,9 @@ void Raytracer::drawScene() {
 			if (inter != nullptr) {
 				Color * c = inter->object->getColor();
 				drawPoint(i, j, c->r, c->g, c->b);
+			}
+			else {
+				drawPoint(i, j, 0.0f,0.0f,0.0f);
 			}
 		}
 	}

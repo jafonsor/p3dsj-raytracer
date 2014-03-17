@@ -34,6 +34,7 @@ void drawPoint(int x, int y, float r, float g, float b) {
  glBegin(GL_POINTS); 
  glColor3f(r, g, b); 
  glVertex2f(x, y); 
+ //std::cout << x << "   " << y << std::endl;
  glEnd(); 
  glFlush(); 
 }
@@ -56,7 +57,7 @@ int renderScene(Raytracer * in_ratracer, int in_res_x, int in_res_y)
  glutInitWindowSize(res_x, res_y); 
  glutInitWindowPosition(100, 100); 
  glutCreateWindow("JAP Ray Tracing"); 
- glClearColor(0, 0, 0, 1); 
+ glClearColor(0.0f, 0.0f, 0.0f, 1); 
  glClear(GL_COLOR_BUFFER_BIT); 
  
  glutReshapeFunc(reshape); 
