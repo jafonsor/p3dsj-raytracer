@@ -38,7 +38,7 @@ void drawPoint(int x, int y, float r, float g, float b) {
  glFlush(); 
 }
  
-int RenderSCene(Raytracer * in_ratracer, int in_res_x, int in_res_y)
+int renderScene(Raytracer * in_ratracer, int in_res_x, int in_res_y)
 { 
 
  raytracer = in_ratracer;

@@ -11,7 +11,6 @@ class Sphere : public Geometry {
 
 public:
 	Sphere(float x, float y, float z, float r);
-	
 	Intersection * checkIntersection(Ray * ray);
 };
 

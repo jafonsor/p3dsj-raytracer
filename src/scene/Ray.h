@@ -3,7 +3,6 @@
 
 #include<glm.hpp>
 
-
 typedef struct ray {
 	glm::vec3 point;
 	glm::vec3 direction;
