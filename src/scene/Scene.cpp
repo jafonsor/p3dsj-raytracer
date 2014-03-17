@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include <float.h>
 
-Scene::Scene() : _objects() {}
+Scene::Scene() : _objects(), _lights() {}
 
 // If no intersection was found returns null
 Intersection * Scene::checkIntersection(Ray * ray) {
@@ -21,6 +21,10 @@ Intersection * Scene::checkIntersection(Ray * ray) {
 
 void Scene::addObject(Object * object) {
 	_objects.push_back(object);
+}
+
+void Scene::addLight(Light * light) {
+	_lights.push_back(light);
 }
 
 void Scene::setCamera(Camera * camera) {

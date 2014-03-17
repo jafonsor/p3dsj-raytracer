@@ -5,9 +5,11 @@
 #include <vector>
 #include "Intersection.h"
 #include "Camera.h"
+#include "Light.h"
 
 class Scene {
 	std::vector<Object*> _objects;
+	std::vector<Light *> _lights;
 	Camera * _camera;
 
 public:
@@ -17,6 +19,7 @@ public:
 	Intersection * checkIntersection(Ray * ray);
 
 	void addObject(Object * object);
+	void addLight(Light * light);
 	void setCamera(Camera * camera);
 	Camera *  getCamera();
 };

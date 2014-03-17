@@ -13,8 +13,8 @@ void Raytracer::drawScene() {
 			r = cam->getPrimaryRay(i, j);
 			inter = _scene->checkIntersection(&r);
 			if (inter != nullptr) {
-				Color * c = inter->object->getColor();
-				drawPoint(i, j, c->r, c->g, c->b);
+				glm::vec3 c = inter->object->color;
+				drawPoint(i, j, c.r, c.g, c.b);
 			}
 			else {
 				drawPoint(i, j, 0.0f,0.0f,0.0f);

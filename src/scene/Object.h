@@ -5,20 +5,15 @@
 #include "Intersection.h"
 #include "Geometry.h"
 
-typedef struct color {
-	float r, g, b;
-} Color;
-
 class Object {
-	Color _color;
 	Geometry *_geometry;
 
 public:
-	Object(Color * color, Geometry * geometry);
-	Object(float r, float g, float b, Geometry * geometry);
+	glm::vec3 color;
+	float kd, ks, shininess;
 
-	Color * getColor();
-
+	Object(glm::vec3 color,float kd, float ks, float shininess,Geometry * geometry);
+	
 	Intersection * checkIntersection(Ray * ray);
 };
 
