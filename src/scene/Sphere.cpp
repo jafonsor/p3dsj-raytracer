@@ -8,8 +8,9 @@ Sphere::Sphere(float x, float y, float z, float r)
 
 Intersection * Sphere::checkIntersection(Ray * ray) {
 	float a = glm::dot(ray->direction,ray->direction);
-	float b = 2 * glm::dot(ray->direction, ray->point);
-	float c = glm::dot(ray->point, ray->point) - (_radius * _radius);
+	glm::vec3 co = (ray->point - _center);
+	float b = 2 * glm::dot(ray->direction, co);
+	float c = glm::dot(co, co) - (_radius * _radius);
 
 	float discriminant = b * b - 4 * a * c;
 	if(discriminant < 0) {
