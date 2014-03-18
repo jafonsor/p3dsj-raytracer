@@ -18,7 +18,7 @@ void Raytracer::drawScene() {
 					ambient color
 				*/
 				c = c * 0.1f;
-				std::vector<Light *> lights = _scene->getLights();
+				std::vector<Light *> lights = _scene->getLights(inter);
 				for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
 					glm::vec3 l = (*it)->position - inter->position;
 					l = glm::normalize(l);
@@ -35,8 +35,6 @@ void Raytracer::drawScene() {
 						c += (*it)->color * inter->object->color * specular * inter->object->ks;
 					}
 				}
-
-				
 				drawPoint(i, j, c.r, c.g, c.b);
 			}
 			else {

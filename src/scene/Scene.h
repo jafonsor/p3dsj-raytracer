@@ -22,6 +22,7 @@ public:
 	void addLight(Light * light);
 	void setCamera(Camera * camera);
 	std::vector<Light *> getLights();
+	std::vector<Light *> getLights(Intersection * intersection);
 	Camera *  getCamera();
 };
 

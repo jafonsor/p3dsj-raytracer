@@ -38,3 +38,27 @@ Camera *  Scene::getCamera() {
 std::vector<Light *> Scene::getLights() {
 	return _lights;
 }
+
+std::vector<Light *> Scene::getLights(Intersection * intersection) {
+	float epsilon = 1E-3;
+	std::vector<Light *> result = std::vector<Light *>();
+	std::vector<Light *> lights = this->getLights();
+
+	for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
+		glm::vec3 l = (*it)->position - intersection->position;
+		l = glm::normalize(l);
+		Ray r;
+		r.point = intersection->position + l * epsilon;
+		r.direction = l;
+
+		Intersection * inter = this->checkIntersection(&r);
+
+		if (inter == nullptr) {
+			result.push_back(*it);
+		}
+		else if (inter->object == intersection->object) {
+			result.push_back(*it);
+		}
+	}
+	return result;
+}
