@@ -34,3 +34,7 @@ void Scene::setCamera(Camera * camera) {
 Camera *  Scene::getCamera() {
 	return _camera;
 }
+
+std::vector<Light *> Scene::getLights() {
+	return _lights;
+}

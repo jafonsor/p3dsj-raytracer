@@ -25,3 +25,7 @@ Ray Camera::getPrimaryRay(int x, int y) {
 	ray.direction = glm::normalize(direction);
 	return ray;
 }
+
+glm::vec3 Camera::getEye() {
+	return eye;
+}

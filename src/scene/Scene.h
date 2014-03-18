@@ -21,6 +21,7 @@ public:
 	void addObject(Object * object);
 	void addLight(Light * light);
 	void setCamera(Camera * camera);
+	std::vector<Light *> getLights();
 	Camera *  getCamera();
 };
 

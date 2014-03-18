@@ -37,7 +37,7 @@ Intersection * Sphere::checkIntersection(Ray * ray) {
 
 	Intersection * result = new Intersection();
 	result->position      = ray->f(t);
-	result->normal        = result->position - _center;
+	result->normal        = glm::normalize(result->position - _center);
 	result->object        = nullptr;
 	result->distanceToEye = t;
 	
