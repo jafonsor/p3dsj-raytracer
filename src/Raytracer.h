@@ -1,6 +1,6 @@
 #ifndef RAYTRACER_H
 #define RAYTRACER_H
-#include "scene\Scene.h"
+#include "scene/Scene.h"
 
 class Raytracer {
 	int _resX, _resY;

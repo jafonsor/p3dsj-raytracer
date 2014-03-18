@@ -1,5 +1,5 @@
-#include"scene\Scene.h"
-#include "scene\Sphere.h"
+#include"scene/Scene.h"
+#include "scene/Sphere.h"
 #include"Raytracer.h"
 #include"DrawAPI.h"
 
