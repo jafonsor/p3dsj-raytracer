@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include <float.h>
 
-Scene::Scene() : _objects(), _lights() {}
+Scene::Scene() : _objects(), _lights(), _background(0.0f) {}
 
 // If no intersection was found returns null
 Intersection * Scene::checkIntersection(Ray * ray) {
@@ -40,25 +40,41 @@ std::vector<Light *> Scene::getLights() {
 }
 
 std::vector<Light *> Scene::getLights(Intersection * intersection) {
-	float epsilon = 1E-3;
-	std::vector<Light *> result = std::vector<Light *>();
-	std::vector<Light *> lights = this->getLights();
+		float epsilon = 1E-3;
+		std::vector<Light *> result = std::vector<Light *>();
+		std::vector<Light *> lights = this->getLights();
 
-	for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
-		glm::vec3 l = (*it)->position - intersection->position;
-		l = glm::normalize(l);
-		Ray r;
-		r.point = intersection->position + l * epsilon;
-		r.direction = l;
+		for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
+			glm::vec3 l = (*it)->position - intersection->position;
+			l = glm::normalize(l);
+			Ray r;
+			r.point = intersection->position + l * epsilon;
+			r.direction = l;
 
-		Intersection * inter = this->checkIntersection(&r);
+			Intersection * inter = this->checkIntersection(&r);
 
-		if (inter == nullptr) {
-			result.push_back(*it);
+			if (inter == nullptr) {
+				result.push_back(*it);
+			}
+			else if (inter->object == intersection->object) {
+				result.push_back(*it);
+			}
 		}
-		else if (inter->object == intersection->object) {
-			result.push_back(*it);
-		}
+		return result;
 	}
-	return result;
+
+void Scene::setBackground(glm::vec3 color) {
+	_background = color;
+}
+
+glm::vec3 Scene::background() {
+	return _background;
+}
+
+int Scene::resX() {
+	return _camera->resX();
+}
+
+int Scene::resY() {
+	return _camera->resY();
 }

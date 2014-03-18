@@ -3,10 +3,9 @@
 #include "scene/Scene.h"
 
 class Raytracer {
-	int _resX, _resY;
 	Scene * _scene;
 public:
-	Raytracer(int resX, int resY,Scene * scene);
+	Raytracer(Scene * scene);
 	void drawScene();
 };
 
