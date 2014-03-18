@@ -43,3 +43,6 @@ clean:
 
 run:
 	./$(BINDIR)/$(EXE)
+
+debug:
+	ddd $(BINDIR)/$(EXE)
