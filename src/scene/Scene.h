@@ -11,6 +11,7 @@ class Scene {
 	std::vector<Object*> _objects;
 	std::vector<Light *> _lights;
 	Camera * _camera;
+	glm::vec3 _background;
 
 public:
 	Scene();
@@ -23,6 +24,10 @@ public:
 	void setCamera(Camera * camera);
 	std::vector<Light *> getLights();
 	Camera *  getCamera();
+	void setBackground(glm::vec3 color);
+	glm::vec3 background();
+	int resX();
+	int resY();
 };
 
 #endif

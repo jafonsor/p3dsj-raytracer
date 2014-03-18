@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include <float.h>
 
-Scene::Scene() : _objects(), _lights() {}
+Scene::Scene() : _objects(), _lights(), _background(0.0f) {}
 
 // If no intersection was found returns null
 Intersection * Scene::checkIntersection(Ray * ray) {
@@ -37,4 +37,20 @@ Camera *  Scene::getCamera() {
 
 std::vector<Light *> Scene::getLights() {
 	return _lights;
+}
+
+void Scene::setBackground(glm::vec3 color) {
+	_background = color;
+}
+
+glm::vec3 Scene::background() {
+	return _background;
+}
+
+int Scene::resX() {
+	return _camera->resX();
+}
+
+int Scene::resY() {
+	return _camera->resY();
 }

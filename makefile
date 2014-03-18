@@ -10,7 +10,7 @@ GLMINCLUDS = $(DEPSDIR)/glm/glm
 
 INCLUDES = -I$(GLMINCLUDS)
 
-LIBS = -lGL -lGLEW -lglut -lGLU
+LIBS = -lGL -lglut -lGLU
 
 SRCSDIR = src
 

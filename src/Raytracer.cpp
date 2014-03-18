@@ -2,14 +2,14 @@
 #include"DrawAPI.h"
 #include<iostream>
 
-Raytracer::Raytracer(int resX, int resY, Scene * scene) : _resX(resX), _resY(resY), _scene(scene) { }
+Raytracer::Raytracer(Scene * scene) : _scene(scene) { }
 
 void Raytracer::drawScene() {
 	Ray r;
 	Intersection * inter;
 	Camera * cam = _scene->getCamera();
-	for (int i = 0; i < _resX; i++) {
-		for (int j = 0; j < _resY; j++) {
+	for (int i = 0; i < _scene->resX(); i++) {
+		for (int j = 0; j < _scene->resY(); j++) {
 			r = cam->getPrimaryRay(i, j);
 			inter = _scene->checkIntersection(&r);
 			if (inter != nullptr) {

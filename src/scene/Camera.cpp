@@ -1,6 +1,6 @@
 #include"Camera.h"
 
-Camera::Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float fovy, int resX, int resY) : eye(eye), at(at), up(up), fovy(fovy), resX(resX), resY(resY) {
+Camera::Camera(glm::vec3 eye, glm::vec3 at, glm::vec3 up, float fovy, int resX, int resY) : eye(eye), at(at), up(up), fovy(fovy), _resX(resX), _resY(resY) {
 	init();
 }
 
@@ -10,7 +10,7 @@ void Camera::init() {
 	ze = glm::normalize(ze);
 
 	h = 2 * df * tan(fovy / 2);
-	w = (resX / resY) * h;
+	w = (_resX / _resY) * h;
 
 	xe = glm::cross(up, ze);
 	xe = glm::normalize(xe);
@@ -20,7 +20,7 @@ void Camera::init() {
 
 Ray Camera::getPrimaryRay(int x, int y) {
 	Ray ray;
-	glm::vec3 direction = -df * ze + h * ((y / (resY - 1.0f)) - 0.5f) * ye + w * ((x / (resX - 1.0f)) - 0.5f) * xe;
+	glm::vec3 direction = -df * ze + h * ((y / (_resY - 1.0f)) - 0.5f) * ye + w * ((x / (_resX - 1.0f)) - 0.5f) * xe;
 	ray.point = eye;
 	ray.direction = glm::normalize(direction);
 	return ray;
@@ -28,4 +28,12 @@ Ray Camera::getPrimaryRay(int x, int y) {
 
 glm::vec3 Camera::getEye() {
 	return eye;
+}
+
+int Camera::resX() {
+	return _resX;
+}
+
+int Camera::resY() {
+	return _resY;
 }
