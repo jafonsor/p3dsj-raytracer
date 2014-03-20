@@ -22,11 +22,10 @@ void test(Scene * s) {
 }
 
 int main(int argc, char *argv[]) {
-	char * fileName; // name of an .nff passed as argument
+	char * fileName = "resources/test.nff";
+	// read the file name from the argument if any given
 	if(argc >= 2) {
 		fileName = argv[1];
-	} else {
-		fileName = "resources/test.nff";
 	}
 	
 	std::cout << argc << ": " << fileName << std::endl;
