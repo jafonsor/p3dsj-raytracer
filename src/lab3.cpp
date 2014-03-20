@@ -4,8 +4,6 @@
 #include "DrawAPI.h"
 #include "NFFLoader.h"
 
-#define PI  3.1415926535897f
-
 void test(Scene * s) {
 	int resx = 500;
 	int resy = 500;
