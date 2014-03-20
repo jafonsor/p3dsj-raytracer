@@ -104,8 +104,8 @@ Camera * readCamera(std::istream &in) {
 	in >> parameter >> eyeX >> eyeY >> eyeZ;
 	in >> parameter >> atX  >> atY  >> atZ;
 	in >> parameter >> upX  >> upY  >> upZ;
-	in >> parameter >> hither;
 	in >> parameter >> angle;
+	in >> parameter >> hither;
 	in >> parameter >> resX  >> resY;
 
 	return new Camera(
