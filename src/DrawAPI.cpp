@@ -59,7 +59,7 @@ int renderScene(Raytracer * in_ratracer, int in_res_x, int in_res_y, float r, fl
 
 	glutInitWindowSize(res_x, res_y); 
 	glutInitWindowPosition(100, 100); 
-	glutCreateWindow("JAP Ray Tracing"); 
+	glutCreateWindow("PSJ - Ray Tracing"); 
 	glClearColor(0.0f, 0.0f, 0.0f, 1); 
 	glClear(GL_COLOR_BUFFER_BIT); 
 
