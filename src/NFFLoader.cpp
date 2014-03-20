@@ -27,6 +27,8 @@ Light*    readLight(std::istream &in);
 ObjectProperties* readObjectProperties(std::istream &in);
 Sphere*   readSphere(std::istream &in);
 
+// -- aux functions
+
 Object * createObject(ObjectProperties * properties, Geometry * geom) {
 	return new Object(
 			properties->color,
@@ -36,6 +38,9 @@ Object * createObject(ObjectProperties * properties, Geometry * geom) {
 			geom
 	);
 }
+
+const float DEGREE_TO_RAD = PI / 180;
+float degToRad(float deg) { return deg * DEGREE_TO_RAD; }
 
 Scene * NFFLoader::createScene(char * fileName) {
 	Scene * scene = new Scene(); // the scene that will be returned
@@ -89,7 +94,7 @@ Camera * readCamera(std::istream &in) {
 	float eyeX, eyeY, eyeZ;
 	float atX,  atY,  atZ;
 	float upX,  upY,  upZ;
-	float angle;
+	float angle; // flovy in degrees
 	float hither; // ignored
 	float resX;
 	float resY;
@@ -99,15 +104,15 @@ Camera * readCamera(std::istream &in) {
 	in >> parameter >> eyeX >> eyeY >> eyeZ;
 	in >> parameter >> atX  >> atY  >> atZ;
 	in >> parameter >> upX  >> upY  >> upZ;
-	in >> parameter >> angle;
 	in >> parameter >> hither;
+	in >> parameter >> angle;
 	in >> parameter >> resX  >> resY;
 
 	return new Camera(
 		glm::vec3(eyeX, eyeY, eyeZ),
 		glm::vec3(atX,  atY,  atZ),
 		glm::vec3(upX,  upY,  upZ),
-		angle,
+		degToRad(angle),
 		resX, resY
 	);
 }
@@ -128,7 +133,7 @@ Light * readLight(std::istream &in) {
 		// color was not there to be read
 		return new Light(glm::vec3(x,y,z));
 	}
-	return new Light(glm::vec3(x,y,b), glm::vec3(x,y,z));
+	return new Light(glm::vec3(x,y,z), glm::vec3(r,g,b));
 }
 
 ObjectProperties * readObjectProperties(std::istream &in) {
