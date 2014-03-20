@@ -31,6 +31,10 @@ int main(void) {
 	test(scene);
 	/**/
 	Raytracer raytracer(scene);
-	renderScene(&raytracer, scene->resX(), scene->resY());
+	renderScene(&raytracer,
+		        scene->resX(), scene->resY(),
+		        scene->background().r,
+		        scene->background().g,
+		        scene->background().b);
 	return 0;
 }
