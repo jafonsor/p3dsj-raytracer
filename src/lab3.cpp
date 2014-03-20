@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "scene/Scene.h"
 #include "scene/Sphere.h"
 #include "Raytracer.h"
@@ -19,11 +21,17 @@ void test(Scene * s) {
 	s->checkIntersection(&ray);
 }
 
-int main(void) {
-	int resx = 500;
-	int resy = 500;
+int main(int argc, char *argv[]) {
+	char * fileName; // name of an .nff passed as argument
+	if(argc >= 2) {
+		fileName = argv[1];
+	} else {
+		fileName = "resources/test.nff";
+	}
+	
+	std::cout << argc << ": " << fileName << std::endl;
 	/**/
-	Scene * scene = NFFLoader::createScene("resources/test.nff");
+	Scene * scene = NFFLoader::createScene(fileName);
 	/** /
 	Scene * scene = new Scene();
 	test(scene);

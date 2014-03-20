@@ -42,7 +42,7 @@ clean:
 	rm -rf $(BINDIR)
 
 run:
-	./$(BINDIR)/$(EXE)
+	./$(BINDIR)/$(EXE) $(args)
 
 debug:
 	ddd $(BINDIR)/$(EXE)
