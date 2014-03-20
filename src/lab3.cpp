@@ -24,9 +24,12 @@ void test(Scene * s) {
 int main(void) {
 	int resx = 500;
 	int resy = 500;
-	//Scene * scene = NFFLoader::createScene("resources/test.nff");
+	/**/
+	Scene * scene = NFFLoader::createScene("resources/test.nff");
+	/** /
 	Scene * scene = new Scene();
 	test(scene);
+	/**/
 	Raytracer raytracer(scene);
 	renderScene(&raytracer, scene->resX(), scene->resY());
 	return 0;
