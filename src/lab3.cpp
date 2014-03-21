@@ -1,10 +1,10 @@
+#include <iostream>
+
 #include "scene/Scene.h"
 #include "scene/Sphere.h"
 #include "Raytracer.h"
 #include "DrawAPI.h"
 #include "NFFLoader.h"
-
-#define PI  3.1415926535897f
 
 void test(Scene * s) {
 	int resx = 500;
@@ -21,13 +21,25 @@ void test(Scene * s) {
 	s->checkIntersection(&ray);
 }
 
-int main(void) {
-	int resx = 500;
-	int resy = 500;
-	//Scene * scene = NFFLoader::createScene("resources/test.nff");
+int main(int argc, char *argv[]) {
+	char * fileName = "resources/test.nff";
+	// read the file name from the argument if any given
+	if(argc >= 2) {
+		fileName = argv[1];
+	}
+	
+	std::cout << argc << ": " << fileName << std::endl;
+	/**/
+	Scene * scene = NFFLoader::createScene(fileName);
+	/** /
 	Scene * scene = new Scene();
 	test(scene);
+	/**/
 	Raytracer raytracer(scene);
-	renderScene(&raytracer, scene->resX(), scene->resY());
+	renderScene(&raytracer,
+		        scene->resX(), scene->resY(),
+		        scene->background().r,
+		        scene->background().g,
+		        scene->background().b);
 	return 0;
 }

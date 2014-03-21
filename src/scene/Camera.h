@@ -4,6 +4,8 @@
 #include<glm.hpp>
 #include"Ray.h"
 
+#define PI  3.1415926535897f
+
 class Camera {
 private:
 	glm::vec3 eye, up, at;

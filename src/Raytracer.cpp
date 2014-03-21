@@ -38,7 +38,8 @@ void Raytracer::drawScene() {
 				drawPoint(i, j, c.r, c.g, c.b);
 			}
 			else {
-				drawPoint(i, j, 0.0f,0.0f,0.0f);
+				// paint the pixel with the background color
+				//drawPoint(i, j, 0.0f,0.0f,0.0f);
 			}
 		}
 	}
