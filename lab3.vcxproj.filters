@@ -45,6 +45,9 @@
     <ClInclude Include="src\scene\Light.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\NFFLoader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\scene\Object.cpp">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scene\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NFFLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

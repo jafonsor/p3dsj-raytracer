@@ -7,6 +7,7 @@ class Raytracer {
 public:
 	Raytracer(Scene * scene);
 	void drawScene();
+	glm::vec3 trace(Ray * r, int depth);
 };
 
 #endif

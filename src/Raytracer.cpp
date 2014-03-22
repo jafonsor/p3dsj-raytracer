@@ -4,6 +4,123 @@
 
 Raytracer::Raytracer(Scene * scene) : _scene(scene) { }
 
+
+float sign(float x) {
+	if (x < 0) {
+		return -1;
+	}
+	else if (x > 0) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+Ray * computeRefractedRay(intersection * inter, glm::vec3 v) {
+	float epsilon = 1E-3;
+	
+	Ray * refractedRay = new Ray;
+	v = -v;
+	float d = sign(glm::dot(v, inter->normal));
+	glm::vec3 normal = inter->normal;
+	glm::vec3 minusOrt = (glm::dot(v, normal) * normal - v);
+	
+	float sini = glm::length(minusOrt);
+	/*
+	index of refraction of air is =~ 1 so ni/nr = 1 /nr
+	*/
+	float sinr;
+	if (d < 0) {
+		sinr = inter->object->indexOfRefraction * sini;
+	}
+	else if(d > 0) {
+		sinr = (1 / inter->object->indexOfRefraction) * sini;
+	}
+	sinr = sini;
+	float factor = 1 - sinr * sinr;
+	if (factor < 0) {
+		delete refractedRay;
+		return refractedRay = nullptr;
+	}
+	float cosr = sqrt(factor);
+	glm::vec3 t = glm::normalize(minusOrt);
+	glm::vec3 refract = cosr * (-normal) + sinr * t;
+	refract = glm::normalize(refract);
+	refractedRay->point = inter->position + epsilon * refract;
+	refractedRay->direction = refract;
+	std::cout << refract.x << std::endl;
+	return refractedRay;
+}
+
+glm::vec3 Raytracer::trace(Ray * r, int depth) {
+	float epsilon = 1E-3;
+	Intersection * inter;
+	glm::vec3 color;
+
+	depth--;
+	inter = _scene->checkIntersection(r);
+	if (inter != nullptr) {
+		color = inter->object->color;
+		/*
+		ambient color
+		*/
+		color = color * 0.1f;
+		std::vector<Light *> lights = _scene->getLights(inter);
+		for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
+			glm::vec3 l = (*it)->position - inter->position;
+			l = glm::normalize(l);
+			float lambert = glm::dot(inter->normal, l);
+			if (lambert > 0) {
+				color += (*it)->color * inter->object->color * lambert * inter->object->kd;
+
+				glm::vec3 r = glm::reflect(-l, inter->normal);
+				glm::vec3 eyeDir = glm::normalize(_scene->getCamera()->getEye() - inter->position);
+
+				float dot = glm::max(glm::dot(r, eyeDir), 0.0f);
+				float specular = glm::pow(dot, inter->object->shininess);
+
+				color += (*it)->color * inter->object->color * specular * inter->object->ks;
+			}
+		}
+
+		if (depth == 0) {
+			return color;
+		}
+
+		// reflection
+		glm::vec3 v = r->direction;
+		/** /
+		//this is the same as refelect(-v,inter->normal)
+		glm::vec3 r = -v - 2 * glm::dot(-v, inter->normal) * inter->normal;
+		/**/
+		glm::vec3 reflect = glm::reflect(v, inter->normal);
+		/**/
+		Ray * reflectedRay = new Ray;
+		reflectedRay->point = inter->position + epsilon * reflect;
+		reflectedRay->direction = reflect;
+		//color += 1.0f * trace(reflectedRay, depth);
+		delete reflectedRay;
+
+
+		// refracted ray
+		Ray * refractedRay = computeRefractedRay(inter, v);
+
+		if (refractedRay != nullptr) {
+			//std::cout << "before " << color.r << " " << color.g << " " << color.b << std::endl;
+			glm::vec3 refractColor = trace(refractedRay, depth);
+			//std::cout << "refrac " << refractColor.r << " " << refractColor.g << " " << refractColor.b << std::endl;
+			color += inter->object->transmittance * refractColor;
+			delete refractedRay;
+		}
+
+		return color;
+	}
+	else {
+		return _scene->background();
+	}
+}
+
 void Raytracer::drawScene() {
 	Ray r;
 	Intersection * inter;
@@ -11,36 +128,10 @@ void Raytracer::drawScene() {
 	for (int i = 0; i < _scene->resX(); i++) {
 		for (int j = 0; j < _scene->resY(); j++) {
 			r = cam->getPrimaryRay(i, j);
-			inter = _scene->checkIntersection(&r);
-			if (inter != nullptr) {
-				glm::vec3 c = inter->object->color;
-				/*
-					ambient color
-				*/
-				c = c * 0.1f;
-				std::vector<Light *> lights = _scene->getLights(inter);
-				for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
-					glm::vec3 l = (*it)->position - inter->position;
-					l = glm::normalize(l);
-					float lambert = glm::dot(inter->normal, l);
-					if (lambert > 0) {
-						c += (*it)->color * inter->object->color * lambert * inter->object->kd;
-
-						glm::vec3 r = glm::reflect(-l, inter->normal);
-						glm::vec3 eyeDir = glm::normalize(cam->getEye() - inter->position);
-
-						float dot = glm::max(glm::dot(r, eyeDir), 0.0f);
-						float specular = glm::pow(dot, inter->object->shininess);
-
-						c += (*it)->color * inter->object->color * specular * inter->object->ks;
-					}
-				}
-				drawPoint(i, j, c.r, c.g, c.b);
-			}
-			else {
-				// paint the pixel with the background color
-				//drawPoint(i, j, 0.0f,0.0f,0.0f);
-			}
+			glm::vec3 c = trace(&r, 3);
+			drawPoint(i, j, c.r, c.g, c.b);
+			//std::cout << i << "  " << j << std::endl;
 		}
 	}
 }
+

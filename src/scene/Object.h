@@ -11,9 +11,10 @@ class Object {
 public:
 	glm::vec3 color;
 	float kd, ks, shininess;
+	float transmittance, indexOfRefraction;
 
 	Object(glm::vec3 color,float kd, float ks, float shininess,Geometry * geometry);
-	
+	Object(glm::vec3 color, float kd, float ks, float shininess, float transmittance, float indexOfRefraction, Geometry * geometry);
 	Intersection * checkIntersection(Ray * ray);
 };
 

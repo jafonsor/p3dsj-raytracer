@@ -53,7 +53,7 @@ Scene * NFFLoader::createScene(char * fileName) {
 		std::cout << "Error loading nff: unable to open the file " << fileName << std::endl;
 		exit(0);
 	}
-	long int size = 200;
+	const int size = 200;
 	char line[size];
 	int lineNumber = 0;
 	while(!file.eof()) {
