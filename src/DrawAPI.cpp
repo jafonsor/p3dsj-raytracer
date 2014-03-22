@@ -40,12 +40,12 @@ void drawPoint(int x, int y, float r, float g, float b) {
 	glFlush(); 
 }
  
-int renderScene(Raytracer * in_ratracer, int in_res_x, int in_res_y, float r, float g, float b)
+int renderScene(Raytracer * in_ratracer, int in_res_x, int in_res_y)
 { 
 	raytracer = in_ratracer;
-	backgroundR = r;
-	backgroundG = g;
-	backgroundR = b;
+	backgroundR = 1.0f;
+	backgroundG = 1.0f;
+	backgroundB = 1.0f;
 	res_x = in_res_x;
 	res_y = in_res_y;
 	printf("resx = %d resy= %d.\n", res_x, res_y);
