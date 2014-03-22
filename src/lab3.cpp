@@ -29,17 +29,13 @@ int main(int argc, char *argv[]) {
 	}
 	
 	std::cout << argc << ": " << fileName << std::endl;
-	/** /
-	Scene * scene = NFFLoader::createScene(fileName);
 	/**/
+	Scene * scene = NFFLoader::createScene(fileName);
+	/** /
 	Scene * scene = new Scene();
 	test(scene);
 	/**/
 	Raytracer raytracer(scene);
-	renderScene(&raytracer,
-		        scene->resX(), scene->resY(),
-		        scene->background().r,
-		        scene->background().g,
-		        scene->background().b);
+	renderScene(&raytracer, scene->resX(), scene->resY());
 	return 0;
 }
