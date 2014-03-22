@@ -14,8 +14,10 @@ typedef struct object_properties {
 	float     kd;
 	float     ks;
 	float     shininess;
-	object_properties(glm::vec3 color, float kd, float ks, float shininess)
-		: color(color), kd(kd), ks(ks), shininess(shininess)
+	float     transmittance;
+	float     ir;
+	object_properties(glm::vec3 color, float kd, float ks, float shininess, float transmittance, float ir)
+		: color(color), kd(kd), ks(ks), shininess(shininess), transmittance(transmittance), ir(ir)
 	{
 		//empty
 	}
@@ -35,6 +37,8 @@ Object * createObject(ObjectProperties * properties, Geometry * geom) {
 			properties->kd,
 			properties->ks,
 			properties->shininess,
+			properties->transmittance,
+			properties->ir,
 			geom
 	);
 }
@@ -141,14 +145,18 @@ ObjectProperties * readObjectProperties(std::istream &in) {
 	float kd;
 	float ks;
 	float shininess;
+	float transmittance;
+	float ir;
 
-	in >> r >> g >> b >> kd >> ks >> shininess;
+	in >> r >> g >> b >> kd >> ks >> shininess >> transmittance >> ir;
 
 	return new ObjectProperties(
 		glm::vec3(r,g,b),
 		kd,
 		ks,
-		shininess
+		shininess,
+		transmittance,
+		ir
 	);
 }
 
