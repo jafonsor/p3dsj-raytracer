@@ -1,4 +1,5 @@
 #include "Sphere.h"
+#include<algorithm>
 
 Sphere::Sphere(float x, float y, float z, float r)
 	: _center(x,y,z), _radius(r) 
@@ -25,15 +26,23 @@ Intersection * Sphere::checkIntersection(Ray * ray) {
 		return nullptr; // both roots are negative
 	}
 
-	if(t0 > t1) {
-		t = t1;
-	} else {
-		t = t0;
+	if (t0 > 0 && t1 > 0) {
+		t = std::min(t0, t1);
+	}
+	else {
+		t = std::max(t0, t1);
 	}
 
 	if(t == 0) {
 		return nullptr; // the intersection is on the eye
 	}
+	/*float d;
+	if (glm::dot(co, co) < this->_radius * this->_radius) {
+		d = -1.0f;
+	}
+	else{
+		d = 1.0f;
+	}*/
 
 	Intersection * result = new Intersection();
 	result->position      = ray->f(t);

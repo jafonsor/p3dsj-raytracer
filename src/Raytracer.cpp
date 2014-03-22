@@ -37,7 +37,6 @@ Ray * computeRefractedRay(intersection * inter, glm::vec3 v) {
 	else if(d > 0) {
 		sinr = (1 / inter->object->indexOfRefraction) * sini;
 	}
-	sinr = sini;
 	float factor = 1 - sinr * sinr;
 	if (factor < 0) {
 		delete refractedRay;
@@ -84,32 +83,30 @@ glm::vec3 Raytracer::trace(Ray * r, int depth) {
 			}
 		}
 
-		if (depth == 0) {
+		if (depth < 1) {
 			return color;
 		}
 
 		// reflection
 		glm::vec3 v = r->direction;
-		/** /
+		/**/
 		//this is the same as refelect(-v,inter->normal)
 		glm::vec3 r = -v - 2 * glm::dot(-v, inter->normal) * inter->normal;
-		/** /
+		/**/
 		glm::vec3 reflect = glm::reflect(v, inter->normal);
-		/** /
+		/**/
 		Ray * reflectedRay = new Ray;
 		reflectedRay->point = inter->position + epsilon * reflect;
 		reflectedRay->direction = reflect;
-		//color += 1.0f * trace(reflectedRay, depth);
+		color += inter->object->ks * (1.0f - inter->object->transmittance) * trace(reflectedRay, depth);
 		delete reflectedRay;
-		*/
+		
 
 		// refracted ray
 		Ray * refractedRay = computeRefractedRay(inter, v);
 
 		if (refractedRay != nullptr) {
-			//std::cout << "before " << color.r << " " << color.g << " " << color.b << std::endl;
 			glm::vec3 refractColor = trace(refractedRay, depth);
-			//std::cout << "refrac " << refractColor.r << " " << refractColor.g << " " << refractColor.b << std::endl;
 			color += inter->object->transmittance * refractColor;
 			delete refractedRay;
 		}
@@ -128,7 +125,7 @@ void Raytracer::drawScene() {
 	for (int i = 0; i < _scene->resX(); i++) {
 		for (int j = 0; j < _scene->resY(); j++) {
 			r = cam->getPrimaryRay(i, j);
-			glm::vec3 c = trace(&r, 4);
+			glm::vec3 c = trace(&r, 3);
 			drawPoint(i, j, c.r, c.g, c.b);
 			//std::cout << i << "  " << j << std::endl;
 		}
