@@ -60,9 +60,8 @@ Scene * NFFLoader::createScene(char * fileName) {
 	const int size = 200;
 	char line[size];
 	int lineNumber = 0;
-	while(!file.eof()) {
+	while(!(file >> entity).eof()) {
 		lineNumber++;
-		file >> entity;
 		if( entity == "b" ) {
 			scene->setBackground( readBackground(file) );
 		} else if( entity == "v" ) {
@@ -81,6 +80,12 @@ Scene * NFFLoader::createScene(char * fileName) {
 			}
 			Geometry * sphere = readSphere(file);
 			scene->addObject( createObject(currentProperties, sphere) );
+		} else {
+			// discard all characters until the end of the line
+			char line[200];
+			file.getline(line,200);
+			std::stringstream lineStream(line);
+			std::cout << "NFFLoader: ignored line>" << entity << " " << line << std::endl; 
 		}
 	}
 	return scene;
