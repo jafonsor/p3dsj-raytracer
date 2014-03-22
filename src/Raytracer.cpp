@@ -23,7 +23,7 @@ Ray * computeRefractedRay(intersection * inter, glm::vec3 v) {
 	Ray * refractedRay = new Ray;
 	v = -v;
 	float d = sign(glm::dot(v, inter->normal));
-	glm::vec3 normal = inter->normal;
+	glm::vec3 normal = d * inter->normal;
 	glm::vec3 minusOrt = (glm::dot(v, normal) * normal - v);
 	
 	float sini = glm::length(minusOrt);
@@ -49,7 +49,7 @@ Ray * computeRefractedRay(intersection * inter, glm::vec3 v) {
 	refract = glm::normalize(refract);
 	refractedRay->point = inter->position + epsilon * refract;
 	refractedRay->direction = refract;
-	std::cout << refract.x << std::endl;
+	//std::cout << refract.x << std::endl;
 	return refractedRay;
 }
 
@@ -93,15 +93,15 @@ glm::vec3 Raytracer::trace(Ray * r, int depth) {
 		/** /
 		//this is the same as refelect(-v,inter->normal)
 		glm::vec3 r = -v - 2 * glm::dot(-v, inter->normal) * inter->normal;
-		/**/
+		/** /
 		glm::vec3 reflect = glm::reflect(v, inter->normal);
-		/**/
+		/** /
 		Ray * reflectedRay = new Ray;
 		reflectedRay->point = inter->position + epsilon * reflect;
 		reflectedRay->direction = reflect;
 		//color += 1.0f * trace(reflectedRay, depth);
 		delete reflectedRay;
-
+		*/
 
 		// refracted ray
 		Ray * refractedRay = computeRefractedRay(inter, v);
@@ -128,7 +128,7 @@ void Raytracer::drawScene() {
 	for (int i = 0; i < _scene->resX(); i++) {
 		for (int j = 0; j < _scene->resY(); j++) {
 			r = cam->getPrimaryRay(i, j);
-			glm::vec3 c = trace(&r, 3);
+			glm::vec3 c = trace(&r, 4);
 			drawPoint(i, j, c.r, c.g, c.b);
 			//std::cout << i << "  " << j << std::endl;
 		}

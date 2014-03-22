@@ -22,7 +22,7 @@ void test(Scene * s) {
 }
 
 int main(int argc, char *argv[]) {
-	char * fileName = "resources/test.nff";
+	char * fileName = "resources/balls_low.nff";
 	// read the file name from the argument if any given
 	if(argc >= 2) {
 		fileName = argv[1];
