@@ -36,13 +36,6 @@ Intersection * Sphere::checkIntersection(Ray * ray) {
 	if(t == 0) {
 		return nullptr; // the intersection is on the eye
 	}
-	/*float d;
-	if (glm::dot(co, co) < this->_radius * this->_radius) {
-		d = -1.0f;
-	}
-	else{
-		d = 1.0f;
-	}*/
 
 	Intersection * result = new Intersection();
 	result->position      = ray->f(t);
