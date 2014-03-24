@@ -125,6 +125,7 @@ void Raytracer::drawScene() {
 	for (int i = 0; i < _scene->resX(); i++) {
 		for (int j = 0; j < _scene->resY(); j++) {
 			r = cam->getPrimaryRay(i, j);
+			std::cout << "ray: " << r.point.x << ", " << r.point.y << ", " << r.point.z << std::endl;
 			glm::vec3 c = trace(&r, 3);
 			drawPoint(i, j, c.r, c.g, c.b);
 			//std::cout << i << "  " << j << std::endl;

@@ -8,6 +8,7 @@
 #include "scene/Sphere.h"
 #include "scene/Light.h"
 #include "scene/Plane.h"
+#include "scene/Triangle.h"
 
 
 typedef struct object_properties {
@@ -30,6 +31,7 @@ Light*    readLight(std::istream &in);
 ObjectProperties* readObjectProperties(std::istream &in);
 Sphere*   readSphere(std::istream &in);
 Plane*    readPlane(std::istream &in);
+Triangle* readTriangle(std::istream &in);
 
 
 // -- aux functions
@@ -84,6 +86,9 @@ Scene * NFFLoader::createScene(char * fileName) {
 		} else if( entity == "pl" ) {
 			Geometry * plane = readPlane(file);
 			scene->addObject( createObject(currentProperties, plane) );
+		} else if( entity == "p" ) {
+			Geometry * triangle = readTriangle(file);
+			scene->addObject( createObject(currentProperties, triangle) );
 		} else {
 			// discard all characters until the end of the line
 			char line[200];
@@ -188,6 +193,24 @@ Plane * readPlane(std::istream &in) {
 	   >> v2x >> v2y >> v2z;
 
 	return new Plane(
+		glm::vec3(v0x, v0y, v0z),
+		glm::vec3(v1x, v1y, v1z),
+		glm::vec3(v2x, v2y, v2z)
+	);
+}
+
+Triangle * readTriangle(std::istream &in) {
+	int numberOfVertices;
+	float v0x, v0y, v0z;
+	float v1x, v1y, v1z;
+	float v2x, v2y, v2z;
+
+	in >> numberOfVertices; // discarded
+	in >> v0x >> v0y >> v0z
+	   >> v1x >> v1y >> v1z
+	   >> v2x >> v2y >> v2z;
+
+	return new Triangle(
 		glm::vec3(v0x, v0y, v0z),
 		glm::vec3(v1x, v1y, v1z),
 		glm::vec3(v2x, v2y, v2z)
