@@ -9,7 +9,8 @@ Triangle::Triangle(glm::vec3 v0, glm::vec3 v1, glm::vec3 v2)
 }
 
 Intersection * Triangle::checkIntersection(Ray * ray) {
-	std::cout << ray->point.x << ", " << ray->point.y << ", " << ray->point.z << std::endl;
+	//if(ray->direction.x > 0 && ray->direction.y > 0 && ray->direction.z > 0)
+		std::cout << "ray: " << ray->direction.x << ", " << ray->direction.y << ", " << ray->direction.z << std::endl;
 	Intersection * inter = _plane.checkIntersection(ray);
 	if(inter == nullptr) {
 		// the ray doesn't intersect the triangle's plane

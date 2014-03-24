@@ -49,7 +49,7 @@ void testTriangle(Scene * s) {
 }
 
 int main(int argc, char *argv[]) {
-	char * fileName = "resources/balls_low.nff";
+	char * fileName = "resources/test.nff";
 	// read the file name from the argument if any given
 	if(argc >= 2) {
 		fileName = argv[1];
@@ -59,11 +59,11 @@ int main(int argc, char *argv[]) {
 	/** /
 	Scene * scene = new Scene();
 	test(scene);
-	/**/
+	/** /
 	Scene * scene = new Scene();
 	testTriangle(scene);
 	/**/
-	//Scene * scene = NFFLoader::createScene(fileName);
+	Scene * scene = NFFLoader::createScene(fileName);
 	Raytracer raytracer(scene);
 	renderScene(&raytracer, scene->resX(), scene->resY());
 	/**/
