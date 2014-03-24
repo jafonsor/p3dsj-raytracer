@@ -7,6 +7,7 @@
 #include "scene/Scene.h"
 #include "scene/Sphere.h"
 #include "scene/Light.h"
+#include "scene/Plane.h"
 
 
 typedef struct object_properties {
@@ -28,10 +29,16 @@ Camera*   readCamera(std::istream &in);
 Light*    readLight(std::istream &in);
 ObjectProperties* readObjectProperties(std::istream &in);
 Sphere*   readSphere(std::istream &in);
+Plane*    readPlane(std::istream &in);
+
 
 // -- aux functions
 
 Object * createObject(ObjectProperties * properties, Geometry * geom) {
+	if(properties == nullptr) {
+		std::cout << "Error loading nff: geometry without properties."  << std::endl;
+		exit(0);
+	}
 	return new Object(
 			properties->color,
 			properties->kd,
@@ -72,14 +79,11 @@ Scene * NFFLoader::createScene(char * fileName) {
 			delete currentProperties;
 			currentProperties = readObjectProperties(file);
 		} else if( entity == "s" ) {
-			if(currentProperties == nullptr) {
-				std::cout << "Error loading " << fileName
-						  << ": sphere without properties on line " << lineNumber
-						  << std::endl;
-				exit(0);
-			}
 			Geometry * sphere = readSphere(file);
 			scene->addObject( createObject(currentProperties, sphere) );
+		} else if( entity == "pl" ) {
+			Geometry * plane = readPlane(file);
+			scene->addObject( createObject(currentProperties, plane) );
 		} else {
 			// discard all characters until the end of the line
 			char line[200];
@@ -172,4 +176,20 @@ Sphere * readSphere(std::istream &in) {
 	in >> cx >> cy >> cz >> radius;
 
 	return new Sphere(cx,cy,cz, radius);
+}
+
+Plane * readPlane(std::istream &in) {
+	float v0x, v0y, v0z;
+	float v1x, v1y, v1z;
+	float v2x, v2y, v2z;
+
+	in >> v0x >> v0y >> v0z
+	   >> v1x >> v1y >> v1z
+	   >> v2x >> v2y >> v2z;
+
+	return new Plane(
+		glm::vec3(v0x, v0y, v0z),
+		glm::vec3(v1x, v1y, v1z),
+		glm::vec3(v2x, v2y, v2z)
+	);
 }

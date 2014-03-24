@@ -16,6 +16,10 @@ Intersection * Plane::checkIntersection(Ray * ray) {
 	} else {
 		float auxA = _d + glm::dot( _normal, ray->point );
 		float t = -  auxA / dotNormalDirection;
+		if(t < 0) {
+			// the plane is behind the camera
+			return nullptr;
+		}
 		Intersection * intersection = new Intersection;
 		intersection->position = ray->f(t);
 		intersection->normal   = _normal;
