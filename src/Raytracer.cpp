@@ -52,32 +52,6 @@ Ray * computeRefractedRay(intersection * inter, glm::vec3 v) {
 	return refractedRay;
 }
 
-glm::vec3 phongColor(Intersection * inter, Scene * scene) {
-	glm::vec3 color = inter->object->color;
-	/*
-	ambient color
-	*/
-	color = color * 0.1f;
-	std::vector<Light *> lights = scene->getLights(inter);
-	for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
-		glm::vec3 l = (*it)->position - inter->position;
-		l = glm::normalize(l);
-		float lambert = glm::dot(inter->normal, l);
-		if (lambert > 0) {
-			color += (*it)->color * inter->object->color * lambert * inter->object->kd;
-
-			glm::vec3 r = glm::reflect(-l, inter->normal);
-			glm::vec3 eyeDir = glm::normalize(scene->getCamera()->getEye() - inter->position);
-
-			float dot = glm::max(glm::dot(r, eyeDir), 0.0f);
-			float specular = glm::pow(dot, inter->object->shininess);
-
-			color += (*it)->color * inter->object->color * specular * inter->object->ks;
-		}
-	}
-	return color;
-}
-
 glm::vec3 Raytracer::trace(Ray * r, int depth) {
 	float epsilon = 1E-3;
 	Intersection * inter;
@@ -86,8 +60,28 @@ glm::vec3 Raytracer::trace(Ray * r, int depth) {
 	depth--;
 	inter = _scene->checkIntersection(r);
 	if (inter != nullptr) {
-		color = phongColor(inter,_scene);
+		color = inter->object->color;
+		/*
+		ambient color
+		*/
+		color = color * 0.1f;
+		std::vector<Light *> lights = _scene->getLights(inter);
+		for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
+			glm::vec3 l = (*it)->position - inter->position;
+			l = glm::normalize(l);
+			float lambert = glm::dot(inter->normal, l);
+			if (lambert > 0) {
+				color += (*it)->color * inter->object->color * lambert * inter->object->kd;
 
+				glm::vec3 r = glm::reflect(-l, inter->normal);
+				glm::vec3 eyeDir = glm::normalize(_scene->getCamera()->getEye() - inter->position);
+
+				float dot = glm::max(glm::dot(r, eyeDir), 0.0f);
+				float specular = glm::pow(dot, inter->object->shininess);
+
+				color += (*it)->color * inter->object->color * specular * inter->object->ks;
+			}
+		}
 		if (depth < 1) {
 			delete inter;
 			return color;
