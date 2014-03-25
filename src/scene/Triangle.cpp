@@ -59,6 +59,7 @@ Intersection * Triangle::checkIntersection(Ray * ray) {
 		// the point belongs to the triangle
 		return inter;
 	} else {
+		delete inter;
 		return nullptr;
 	}
 

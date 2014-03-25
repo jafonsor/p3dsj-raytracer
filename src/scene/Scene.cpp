@@ -12,6 +12,7 @@ Intersection * Scene::checkIntersection(Ray * ray) {
 	for(it = _objects.begin(); it != _objects.end(); it++) {
 		intersectionPoint = (*it)->checkIntersection(ray);
 		if(intersectionPoint != nullptr && intersectionPoint->distanceToEye < minDist) {
+			delete result;
 			result = intersectionPoint;
 			minDist = result->distanceToEye;
 		}
@@ -59,6 +60,7 @@ std::vector<Light *> Scene::getLights(Intersection * intersection) {
 			else if (inter->object == intersection->object) {
 				result.push_back(*it);
 			}
+			delete inter;
 		}
 		return result;
 	}
