@@ -48,6 +48,12 @@
     <ClInclude Include="src\NFFLoader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\Triangle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Plane.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\scene\Object.cpp">
@@ -75,6 +81,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\NFFLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Plane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

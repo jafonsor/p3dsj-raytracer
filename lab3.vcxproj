@@ -88,9 +88,11 @@
     <ClInclude Include="src\scene\Light.h" />
     <ClInclude Include="src\scene\Object.h" />
     <ClInclude Include="src\scene\Intersection.h" />
+    <ClInclude Include="src\scene\Plane.h" />
     <ClInclude Include="src\scene\Ray.h" />
     <ClInclude Include="src\scene\Scene.h" />
     <ClInclude Include="src\scene\Sphere.h" />
+    <ClInclude Include="src\scene\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lab3.cpp" />
@@ -100,8 +102,10 @@
     <ClCompile Include="src\scene\Camera.cpp" />
     <ClCompile Include="src\scene\Light.cpp" />
     <ClCompile Include="src\scene\Object.cpp" />
+    <ClCompile Include="src\scene\Plane.cpp" />
     <ClCompile Include="src\scene\Scene.cpp" />
     <ClCompile Include="src\scene\Sphere.cpp" />
+    <ClCompile Include="src\scene\Triangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

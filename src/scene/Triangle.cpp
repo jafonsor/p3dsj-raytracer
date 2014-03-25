@@ -41,7 +41,7 @@ Intersection * Triangle::checkIntersection(Ray * ray) {
 	float v1 = _v0v1[i2];
 	float v2 = _v0v2[i2];
 
-	float alpha, beta;
+	float alpha = 0, beta = 0;
 
 	if( u1 == 0) {
 		beta = u0 / u2;

@@ -64,7 +64,7 @@ glm::vec3 Raytracer::trace(Ray * r, int depth) {
 		/*
 		ambient color
 		*/
-		color = color * 0.1f;
+		color = color * 0.05f;
 		std::vector<Light *> lights = _scene->getLights(inter);
 		for (std::vector<Light*>::iterator it = lights.begin(); it != lights.end(); it++) {
 			glm::vec3 l = (*it)->position - inter->position;
@@ -91,7 +91,7 @@ glm::vec3 Raytracer::trace(Ray * r, int depth) {
 		glm::vec3 v = r->direction;
 		/**/
 		//this is the same as refelect(-v,inter->normal)
-		glm::vec3 r = -v - 2 * glm::dot(-v, inter->normal) * inter->normal;
+		//glm::vec3 r = -v - 2 * glm::dot(-v, inter->normal) * inter->normal;
 		/**/
 		glm::vec3 reflect = glm::reflect(v, inter->normal);
 		/**/
