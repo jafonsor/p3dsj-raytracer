@@ -2,12 +2,13 @@
 #include <GL/glut.h> 
 #include <iostream> 
 #include <stdio.h> 
+#include <glm.hpp>
 #include "scene/Scene.h" 
 #include "DrawAPI.h"
- 
+
 #define MAX_DEPTH 6 
  
-Raytracer * raytracer;
+PixelDrawer * pixelDrawer;
 int res_x, res_y;
 float backgroundR, backgroundG, backgroundB;
  
@@ -23,26 +24,32 @@ void reshape(int w, int h)
 	glMatrixMode (GL_MODELVIEW); 
 	glLoadIdentity(); 
 } 
- 
-// Draw function by primary ray casting from the eye towards the scene's objects 
-void drawScene() 
-{ 
-	raytracer->drawScene();
-	printf("Terminou!\n"); 
-} 
+
 
 void drawPoint(int x, int y, float r, float g, float b) {
 	glBegin(GL_POINTS); 
 	glColor3f(r, g, b); 
 	glVertex2f(x, y); 
-	//std::cout << x << "   " << y << std::endl;
 	glEnd(); 
 	glFlush(); 
 }
  
-int renderScene(Raytracer * in_ratracer, int in_res_x, int in_res_y)
+// Draw function by primary ray casting from the eye towards the scene's objects 
+void drawScene() 
 { 
-	raytracer = in_ratracer;
+	glm::vec3 color;
+	for(int i = 0; i < res_x; i++) {
+		for(int j = 0; j < res_y; j++) {
+			color = pixelDrawer->drawPixel(i,j);
+			drawPoint(i,j,color.r,color.g,color.b);
+		}
+	}
+	printf("Terminou!\n"); 
+} 
+ 
+int renderScene(PixelDrawer * in_pixelDrawer, int in_res_x, int in_res_y)
+{ 
+	pixelDrawer = in_pixelDrawer;
 	backgroundR = 1.0f;
 	backgroundG = 1.0f;
 	backgroundB = 1.0f;
