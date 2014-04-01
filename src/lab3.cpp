@@ -5,8 +5,10 @@
 #include "scene/Triangle.h"
 #include "scene/Intersection.h"
 #include "Raytracer.h"
+#include "BufferedPixelDrawer.h"
 #include "DrawAPI.h"
 #include "NFFLoader.h"
+
 
 
 void test(Scene * s) {
@@ -67,6 +69,7 @@ int main(int argc, char *argv[]) {
 	/**/
 	Scene * scene = NFFLoader::createScene(fileName);
 	Raytracer raytracer(scene);
+	BufferedPixelDrawer pixelDrawer(&raytracer, scene->resX() + 1, scene->resY() + 1);
 	renderScene(&raytracer, scene->resX(), scene->resY());
 	/**/
 	return 0;

@@ -16,7 +16,7 @@ class BufferedPixelDrawer : public PixelDrawer {
 public:
 	BufferedPixelDrawer(PixelDrawer * wrappedDrawer, int sizeX, int sizeY);
 	~BufferedPixelDrawer();
-	glm::vec3 drawPixel(int x, int y);
+	inline glm::vec3 drawPixel(float x, float y);
 };
 
 #endif

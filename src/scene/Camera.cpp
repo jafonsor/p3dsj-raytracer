@@ -18,7 +18,7 @@ void Camera::init() {
 	ye = glm::cross(ze, xe);
 }
 
-Ray Camera::getPrimaryRay(int x, int y) {
+Ray Camera::getPrimaryRay(float x, float y) {
 	Ray ray;
 	glm::vec3 direction = -df * ze + h * ((y / (_resY - 1.0f)) - 0.5f) * ye + w * ((x / (_resX - 1.0f)) - 0.5f) * xe;
 	ray.point = eye;

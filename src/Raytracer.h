@@ -10,7 +10,7 @@ class Raytracer : public PixelDrawer {
 public:
 	Raytracer(Scene * scene);
 	glm::vec3 trace(Ray * r, int depth);
-	glm::vec3 drawPixel(int x, int y);
+	glm::vec3 drawPixel(float x, float y);
 };
 
 #endif

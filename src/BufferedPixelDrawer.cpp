@@ -20,9 +20,10 @@ BufferedPixelDrawer::~BufferedPixelDrawer() {
 	delete _colorBuffer;
 }
 
-glm::vec3 BufferedPixelDrawer::drawPixel(int x, int y) {
+inline glm::vec3 BufferedPixelDrawer::drawPixel(int x, int y) {
 	if(!_savedValue[x][y]) {
 		_colorBuffer[x][y] = _wrappedDrawer->drawPixel(x,y);
+		_savedValue[x][y] = true;
 	}
 	return _colorBuffer[x][y];
 }

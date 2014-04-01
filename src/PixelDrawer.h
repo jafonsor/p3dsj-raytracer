@@ -5,7 +5,7 @@
 
 class PixelDrawer {
 public:
-	virtual glm::vec3 drawPixel(int x, int y) = 0;
+	virtual glm::vec3 drawPixel(float x, float y) = 0;
 };
 
 #endif
