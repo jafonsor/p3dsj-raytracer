@@ -1,0 +1,26 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/joao/tecnico/p3d/assignment2"
+		}
+	],
+
+	"settings":
+	{
+		"sublimeclang_options":
+		[
+			"-I${folder:${project_path:assignment2.sublime-project}}/**",
+			"-I/home/joao/tecnico/p3d/dependencies/glm/glm",
+			"-I/home/joao/tecnico/p3d"
+		],
+
+		"sublimeclang_additional_language_options":
+		{
+			"c++":
+			[
+				"--std=c++11"
+			]
+		}
+	}
+}
