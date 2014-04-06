@@ -21,6 +21,7 @@ public:
 
 	void addObject(Object * object);
 	void addLight(Light * light);
+	void addAreaLight(Light * areaLight, glm::vec3 u, glm::vec3 v, int n);
 	void setCamera(Camera * camera);
 	std::vector<Light *> getLights();
 	std::vector<Light *> getLights(Intersection * intersection);

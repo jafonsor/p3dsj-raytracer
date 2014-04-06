@@ -28,6 +28,20 @@ void Scene::addLight(Light * light) {
 	_lights.push_back(light);
 }
 
+
+void Scene::addAreaLight(Light * areaLight, glm::vec3 u, glm::vec3 v, int n) {
+	glm::vec3 p = areaLight->position;
+	int ite = (int)floorf(sqrt(1.0f * n));
+	float h = 1 / sqrt(1.0f * n);
+	float prob = 1.0f / n;
+	for (int i = 0; i < ite; i++) {
+		for (int j = 0; j < ite; j++) {
+			glm::vec3 w = p + u * (((2.0f - h) * i) / h) + v * (((2.0f - h) * j)/ h);
+			addLight(createLight(w, areaLight->color * prob));
+		}
+	}
+}
+
 void Scene::setCamera(Camera * camera) {
 	_camera = camera;
 }
