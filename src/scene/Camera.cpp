@@ -10,7 +10,7 @@ void Camera::init() {
 	ze = glm::normalize(ze);
 
 	h = 2 * df * tan(fovy / 2);
-	w = (_resX / _resY) * h;
+	w = ((float)_resX / (float)_resY) * h;
 
 	xe = glm::cross(up, ze);
 	xe = glm::normalize(xe);
@@ -18,9 +18,9 @@ void Camera::init() {
 	ye = glm::cross(ze, xe);
 }
 
-Ray Camera::getPrimaryRay(int x, int y) {
+Ray Camera::getPrimaryRay(float x, float y) {
 	Ray ray;
-	glm::vec3 direction = -df * ze + h * ((y / (_resY - 1.0f)) - 0.5f) * ye + w * ((x / (_resX - 1.0f)) - 0.5f) * xe;
+	glm::vec3 direction = -df * ze + h * ((y / ((float)_resY - 1.0f)) - 0.5f) * ye + w * ((x / ((float)_resX - 1.0f)) - 0.5f) * xe;
 	ray.point = eye;
 	ray.direction = glm::normalize(direction);
 	return ray;

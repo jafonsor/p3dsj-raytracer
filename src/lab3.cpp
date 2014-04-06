@@ -5,8 +5,10 @@
 #include "scene/Triangle.h"
 #include "scene/Intersection.h"
 #include "Raytracer.h"
+#include "RecursiveAntialising.h"
 #include "DrawAPI.h"
 #include "NFFLoader.h"
+
 
 
 void test(Scene * s) {
@@ -70,7 +72,8 @@ int main(int argc, char *argv[]) {
 	Scene * scene = NFFLoader::createScene(fileName);
 	/**/
 	Raytracer raytracer(scene);
-	renderScene(&raytracer, scene->resX(), scene->resY());
+	RecursiveAntialising antialising(&raytracer,8);
+	renderScene(&antialising, scene->resX(), scene->resY());
 	/**/
 	return 0;
 }

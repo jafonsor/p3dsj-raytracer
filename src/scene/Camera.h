@@ -16,7 +16,7 @@ private:
 public:
 	Camera(glm::vec3 eye,glm::vec3 at,glm::vec3 up,float fovy, int resX,int resY);
 	void init();
-	Ray getPrimaryRay(int x, int y);
+	Ray getPrimaryRay(float x, float y);
 	glm::vec3 getEye();
 	int resX();
 	int resY();

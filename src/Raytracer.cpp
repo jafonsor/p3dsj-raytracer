@@ -119,16 +119,8 @@ glm::vec3 Raytracer::trace(Ray * r, int depth) {
 	}
 }
 
-void Raytracer::drawScene() {
-	Ray r;
-	Intersection * inter;
-	Camera * cam = _scene->getCamera();
-	for (int i = 0; i < _scene->resX(); i++) {
-		for (int j = 0; j < _scene->resY(); j++) {
-			r = cam->getPrimaryRay(i, j);
-			glm::vec3 c = trace(&r, 3);
-			drawPoint(i, j, c.r, c.g, c.b);
-		}
-	}
+glm::vec3 Raytracer::drawPixel(float x, float y) {
+	Ray r = _scene->getCamera()->getPrimaryRay(x,y);
+	return trace( &r, 3);
 }
 
