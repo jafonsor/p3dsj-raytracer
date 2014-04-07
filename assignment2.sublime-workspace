@@ -8,26 +8,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/PixelDrawer.h",
+			"file": "src/RecursiveAntialising.cpp",
 			"settings":
 			{
-				"buffer_size": 157,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/NFFLoader.cpp",
-			"settings":
-			{
-				"buffer_size": 5225,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "assignment2.sublime-project",
-			"settings":
-			{
-				"buffer_size": 226,
+				"buffer_size": 2035,
 				"line_ending": "Unix"
 			}
 		}
@@ -80,6 +64,14 @@
 	},
 	"file_history":
 	[
+		"/home/joao/progs/js/textarea.js",
+		"/home/joao/tecnico/p3d/assignment2/src/lab3.cpp",
+		"/home/joao/tecnico/p3d/assignment2/src/NFFLoader.cpp",
+		"/home/joao/tecnico/p3d/assignment2/src/NFFLoader.h",
+		"/home/joao/tecnico/p3d/assignment2/.gitignore",
+		"/home/joao/tecnico/p3d/assignment2/src/PixelDrawer.h",
+		"/home/joao/tecnico/p3d/assignment2/src/RecursiveAntialising.cpp",
+		"/home/joao/tecnico/p3d/assignment2/assignment2.sublime-project",
 		"/home/joao/.config/sublime-text-2/Packages/User/SublimeClang.sublime-settings",
 		"/home/joao/.config/sublime-text-2/Packages/SublimeClang/SublimeClang.sublime-settings"
 	],
@@ -99,6 +91,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"r"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -121,76 +114,24 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/PixelDrawer.h",
+					"file": "src/RecursiveAntialising.cpp",
 					"settings":
 					{
-						"buffer_size": 157,
+						"buffer_size": 2035,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								157,
-								157
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/NFFLoader.cpp",
-					"settings":
-					{
-						"buffer_size": 5225,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								688,
+								688
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "assignment2.sublime-project",
-					"settings":
-					{
-						"buffer_size": 226,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								169,
-								169
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

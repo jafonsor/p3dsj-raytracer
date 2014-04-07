@@ -3,6 +3,7 @@
 #include <iostream> 
 #include <stdio.h> 
 #include <glm.hpp>
+#include "RecursiveAntialising.h"
 #include "scene/Scene.h" 
 #include "DrawAPI.h"
 
@@ -44,6 +45,7 @@ void drawScene()
 			drawPoint(i,j,color.r,color.g,color.b);
 		}
 	}
+	pixelDrawer->print();
 	printf("Terminou!\n"); 
 } 
  
