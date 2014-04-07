@@ -20,7 +20,7 @@ glm::vec3 interpolateMiddleColor(glm::vec3 ci, glm::vec3 cf);
 
 
 glm::vec3 RecursiveAntialising::overSample(float x, float y, int depth) {
-	_depthCounter[depth]++; // for profiling reasons
+	_depthCounter[depth-1]++; // for profiling reasons
 	float delta = 1.0f/(depth+1.0f);
 	glm::vec3 color1 = _wrappedDrawer->drawPixel(      x,      y);
 	glm::vec3 color2 = _wrappedDrawer->drawPixel(x+delta,      y);
@@ -32,7 +32,7 @@ glm::vec3 RecursiveAntialising::overSample(float x, float y, int depth) {
 	glm::vec3 leftMiddleColor  = interpolateMiddleColor(color2,color4);
 	float threshold = diff(rightMiddleColor,leftMiddleColor);
 
-	if(threshold < 3.0f || depth > _maxDepth) {
+	if(threshold < 3.0f || depth >= _maxDepth) {
 		return (color1 + color2 + color3 + color4) / 4.0f;
 	} else {
 		int   nextDepth = depth + 1;
@@ -62,7 +62,7 @@ glm::vec3 interpolateMiddleColor(glm::vec3 ci, glm::vec3 cf) {
 void RecursiveAntialising::print() {
 	std::cout << "Antialising stats:" << std::endl;
 	for(int i = 0; i < _maxDepth; i++) {
-		std::cout << "depth " << i << ": " << _depthCounter[i] << std::endl;
+		std::cout << "depth " << i+1 << ": " << _depthCounter[i] << std::endl;
 	}
 	_wrappedDrawer->print();
 }
