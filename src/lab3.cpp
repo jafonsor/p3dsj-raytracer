@@ -54,7 +54,7 @@ void testTriangle() {
 }
 
 int main(int argc, char *argv[]) {
-	const char * fileName = "resources/balls_medium.nff";
+	const char * fileName = "resources/balls_low.nff";
 	// read the file name from the argument if any given
 	if(argc >= 2) {
 		fileName = argv[1];
