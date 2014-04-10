@@ -124,3 +124,8 @@ glm::vec3 Raytracer::drawPixel(float x, float y) {
 	return trace( &r, 3);
 }
 
+
+Scene * Raytracer::getScene() {
+	return _scene;
+}
+

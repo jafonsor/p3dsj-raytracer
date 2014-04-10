@@ -37,3 +37,17 @@ int Camera::resX() {
 int Camera::resY() {
 	return _resY;
 }
+
+float Camera::getDf() {
+	return df;
+}
+
+glm::vec3 Camera::getXe() {
+	return xe;
+}
+glm::vec3 Camera::getYe() {
+	return ye;
+}
+glm::vec3 Camera::getZe() {
+	return ze;
+}

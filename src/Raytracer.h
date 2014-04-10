@@ -11,6 +11,7 @@ public:
 	Raytracer(Scene * scene);
 	glm::vec3 trace(Ray * r, int depth);
 	glm::vec3 drawPixel(float x, float y);
+	Scene * getScene();
 };
 
 #endif

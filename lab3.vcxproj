@@ -80,9 +80,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\DepthOfField.h" />
     <ClInclude Include="src\DrawAPI.h" />
     <ClInclude Include="src\NFFLoader.h" />
+    <ClInclude Include="src\PixelDrawer.h" />
     <ClInclude Include="src\Raytracer.h" />
+    <ClInclude Include="src\RecursiveAntialising.h" />
     <ClInclude Include="src\scene\Camera.h" />
     <ClInclude Include="src\scene\Geometry.h" />
     <ClInclude Include="src\scene\Light.h" />
@@ -95,10 +98,12 @@
     <ClInclude Include="src\scene\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\DepthOfField.cpp" />
     <ClCompile Include="src\lab3.cpp" />
     <ClCompile Include="src\DrawAPI.cpp" />
     <ClCompile Include="src\NFFLoader.cpp" />
     <ClCompile Include="src\Raytracer.cpp" />
+    <ClCompile Include="src\RecursiveAntialising.cpp" />
     <ClCompile Include="src\scene\Camera.cpp" />
     <ClCompile Include="src\scene\Light.cpp" />
     <ClCompile Include="src\scene\Object.cpp" />

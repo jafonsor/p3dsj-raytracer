@@ -8,6 +8,7 @@
 #include "RecursiveAntialising.h"
 #include "DrawAPI.h"
 #include "NFFLoader.h"
+#include "DepthOfField.h"
 
 
 
@@ -70,10 +71,14 @@ int main(int argc, char *argv[]) {
 	testTriangle();
 	/**/
 	Scene * scene = NFFLoader::createScene(fileName);
-	/**/
+	/** /
 	Raytracer raytracer(scene);
 	RecursiveAntialising antialising(&raytracer,8);
 	renderScene(&antialising, scene->resX(), scene->resY());
+	/**/
+	Raytracer raytracer(scene);
+	DepthOfField depthOfField(&raytracer, 1.0f,1.0f,10);
+	renderScene(&depthOfField, scene->resX(), scene->resY());
 	/**/
 	return 0;
 }

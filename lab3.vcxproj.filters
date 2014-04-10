@@ -54,6 +54,15 @@
     <ClInclude Include="src\scene\Plane.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\PixelDrawer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RecursiveAntialising.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DepthOfField.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\scene\Object.cpp">
@@ -87,6 +96,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scene\Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RecursiveAntialising.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DepthOfField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

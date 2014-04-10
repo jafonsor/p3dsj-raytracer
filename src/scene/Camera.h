@@ -20,6 +20,10 @@ public:
 	glm::vec3 getEye();
 	int resX();
 	int resY();
+	float getDf();
+	glm::vec3 getXe();
+	glm::vec3 getYe();
+	glm::vec3 getZe();
 };
 
 
