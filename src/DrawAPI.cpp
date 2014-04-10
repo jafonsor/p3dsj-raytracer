@@ -1,16 +1,24 @@
 #include <stdlib.h> 
-#include <GL/glut.h> 
-#include <iostream> 
+#include <iostream>
+#include <list>
+#include <thread>
 #include <stdio.h> 
+#include <GL/glut.h> 
 #include <glm.hpp>
-#include "scene/Scene.h" 
+#include <mutex>
 #include "DrawAPI.h"
+#include "RecursiveAntialising.h"
+#include "scene/Scene.h" 
 
 #define MAX_DEPTH 6 
  
 PixelDrawer * pixelDrawer;
 int res_x, res_y;
 float backgroundR, backgroundG, backgroundB;
+
+// for storing the threads that are drawing the pixels
+std::list<std::thread*> threads;
+glm::vec3 savedPixels[1000][1000];
  
 void reshape(int w, int h) 
 { 
@@ -33,17 +41,79 @@ void drawPoint(int x, int y, float r, float g, float b) {
 	glEnd(); 
 	glFlush(); 
 }
+
+void threadedDrawPoint(int x, int y, float r, float g, float b) {
+	static std::mutex m;
+	m.lock();
+	drawPoint(x, y, r, g, b);
+	m.unlock();
+}
+
+void savePixel(int x, int y, glm::vec3 color) {
+	savedPixels[x][y] = color;
+}
+
+void printPixels() {
+	glm::vec3 c;
+	for(int i = 0; i < res_x; i++) {
+		for(int j = 0; j < res_y; j++) {
+			c = savedPixels[i][j];
+			drawPoint(i,j, c.r, c.g, c.b);
+		}
+	}
+}
+
+
+void threadedPixel(int x, int y) {
+	glm::vec3 color = pixelDrawer->drawPixel(x,y);
+	savePixel(x,y,color);
+	//drawPoint(x,y,color.r,color.g,color.b);
+}
+
+void threadedColumns(int ci, int cf, int lines) {
+	for(int c = ci; c < cf; c++) {
+		for(int l = 0; l < lines; l++) {
+			threadedPixel(c,l);
+		}
+	}
+}
  
 // Draw function by primary ray casting from the eye towards the scene's objects 
 void drawScene() 
 { 
-	glm::vec3 color;
-	for(int i = 0; i < res_x; i++) {
-		for(int j = 0; j < res_y; j++) {
-			color = pixelDrawer->drawPixel(i,j);
-			drawPoint(i,j,color.r,color.g,color.b);
-		}
+	// devide the columns by eight threads
+	int numberOfThreads = 8;
+	int columnsByThread = res_x / numberOfThreads;
+	int leftColumns     = res_x - (numberOfThreads-1)*columnsByThread;
+
+	std::thread * th;
+	int t, ci,cf;
+	for(t = 0; t < numberOfThreads - 1; t++) {
+		ci = t*columnsByThread;
+		cf = ci + columnsByThread;
+		std::cout << t << ":" << ci << ", " << cf << std::endl;
+		th = new std::thread(threadedColumns, ci,cf,res_y);
+		threads.push_back(th);
 	}
+
+	ci = t*columnsByThread;
+	cf = ci + leftColumns;
+	std::cout << t << ":" << ci << ", " << cf << std::endl;
+	th = new std::thread(threadedColumns, ci,cf,res_y);
+	threads.push_back(th);
+
+	// join threads
+	std::list<std::thread*>::iterator it;
+	for(it = threads.begin(); it != threads.end(); it++) {
+		(*it)->join();
+		delete (*it); // the thread objects is no longer needed
+	}
+	threads.clear();
+
+	printPixels();
+	glFlush();
+
+	pixelDrawer->print();
 	printf("Terminou!\n"); 
 } 
  

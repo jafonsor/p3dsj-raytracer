@@ -8,7 +8,7 @@ class Scene;
 
 class NFFLoader {
 public:
-	static Scene * createScene(char * fileName);
+	static Scene * createScene(const char * fileName);
 };
 
 #endif

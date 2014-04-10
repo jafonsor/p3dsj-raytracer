@@ -55,7 +55,7 @@ Object * createObject(ObjectProperties * properties, Geometry * geom) {
 const float DEGREE_TO_RAD = PI / 180;
 float degToRad(float deg) { return deg * DEGREE_TO_RAD; }
 
-Scene * NFFLoader::createScene(char * fileName) {
+Scene * NFFLoader::createScene(const char * fileName) {
 	Scene * scene = new Scene(); // the scene that will be returned
 	std::string entity; // used to store the first string of the line
 	ObjectProperties * currentProperties = nullptr;
