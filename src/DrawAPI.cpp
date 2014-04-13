@@ -38,8 +38,7 @@ void drawPoint(int x, int y, float r, float g, float b) {
 	glBegin(GL_POINTS); 
 	glColor3f(r, g, b); 
 	glVertex2f(x, y); 
-	glEnd(); 
-	glFlush(); 
+	glEnd();
 }
 
 void threadedDrawPoint(int x, int y, float r, float g, float b) {
@@ -77,10 +76,8 @@ void threadedColumns(int ci, int cf, int lines) {
 		}
 	}
 }
- 
-// Draw function by primary ray casting from the eye towards the scene's objects 
-void drawScene() 
-{ 
+
+void multi_threaded_draw_scene() {
 	// devide the columns by eight threads
 	int numberOfThreads = 8;
 	int columnsByThread = res_x / numberOfThreads;
@@ -111,6 +108,22 @@ void drawScene()
 	threads.clear();
 
 	printPixels();
+}
+
+void sequencial_draw_scene() {
+	for(int i = 0; i < res_x; i++) {
+		for(int j = 0; j < res_y; j++) {
+			glm::vec3 color = pixelDrawer->drawPixel(i,j);
+			drawPoint(i,j,color.r,color.g,color.b);
+		}
+	}
+}
+ 
+// Draw function by primary ray casting from the eye towards the scene's objects 
+void drawScene() 
+{ 
+	// multi_threaded_draw_scene();
+	sequencial_draw_scene();
 	glFlush();
 
 	pixelDrawer->print();
