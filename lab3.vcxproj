@@ -102,6 +102,7 @@
     <ClCompile Include="src\lab3.cpp" />
     <ClCompile Include="src\DrawAPI.cpp" />
     <ClCompile Include="src\NFFLoader.cpp" />
+    <ClCompile Include="src\PixelDrawer.cpp" />
     <ClCompile Include="src\Raytracer.cpp" />
     <ClCompile Include="src\RecursiveAntialising.cpp" />
     <ClCompile Include="src\scene\Camera.cpp" />

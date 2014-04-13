@@ -104,5 +104,8 @@
     <ClCompile Include="src\DepthOfField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PixelDrawer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

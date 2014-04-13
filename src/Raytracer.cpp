@@ -30,7 +30,7 @@ Ray * computeRefractedRay(intersection * inter, glm::vec3 v) {
 	/*
 	index of refraction of air is =~ 1 so ni/nr = 1 /nr
 	*/
-	float sinr;
+	float sinr = 1.0f;
 	if (d < 0) {
 		sinr = inter->object->indexOfRefraction * sini;
 	}
