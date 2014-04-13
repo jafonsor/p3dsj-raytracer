@@ -39,6 +39,7 @@ void drawPoint(int x, int y, float r, float g, float b) {
 	glColor3f(r, g, b); 
 	glVertex2f(x, y); 
 	glEnd();
+	glFlush();
 }
 
 void threadedDrawPoint(int x, int y, float r, float g, float b) {
@@ -124,7 +125,6 @@ void drawScene()
 { 
 	// multi_threaded_draw_scene();
 	sequencial_draw_scene();
-	glFlush();
 
 	pixelDrawer->print();
 	printf("Terminou!\n"); 
