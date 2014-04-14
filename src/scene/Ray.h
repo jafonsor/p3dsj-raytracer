@@ -1,7 +1,7 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include<glm.hpp>
+#include <glm.hpp>
 
 typedef struct ray {
 	glm::vec3 point;

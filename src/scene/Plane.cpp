@@ -6,6 +6,11 @@ Plane::Plane(glm::vec3 v0, glm::vec3 v1, glm::vec3 v2) {
 	_d = - glm::dot( v0, _normal );
 }
 
+Plane::Plane(glm::vec3 &p0, glm::vec3 &normal)
+	: _normal(normal)
+{
+	_d = - glm::dot( p0, _normal );
+}
 #define DELTA 0.00001
 
 Intersection * Plane::checkIntersection(Ray * ray) {
@@ -26,4 +31,14 @@ Intersection * Plane::checkIntersection(Ray * ray) {
 		intersection->distanceToEye = t;
 		return intersection;
 	}
+}
+
+// planes are infinit so they can't be bounded
+glm::vec3 Plane::getMaxCorner() {
+	return glm::vec3(0,0,0);
+}
+
+// planes are infinit so they can't be bounded
+glm::vec3 Plane::getMinCorner() {
+	return glm::vec3(0,0,0);
 }

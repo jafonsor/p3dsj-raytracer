@@ -45,3 +45,12 @@ Intersection * Sphere::checkIntersection(Ray * ray) {
 	
 	return result;
 }
+
+// Bounding corners of the geometry.
+glm::vec3 Sphere::getMaxCorner() {
+	return glm::vec3(_center.x + _radius, _center.y + _radius, _center.z + _radius);
+}
+
+glm::vec3 Sphere::getMinCorner() {
+	return glm::vec3(_center.x - _radius, _center.y - _radius, _center.z - _radius);
+}
