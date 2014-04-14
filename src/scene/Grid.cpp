@@ -37,6 +37,22 @@ bool Voxel::operator>(Voxel &other) {
 	}
 }
 
+Intersection * Voxel::checkIntersection(Ray * ray) {
+	std::list<Object*>::iterator it;
+	Intersection * result;
+	Intersection * intersectionPoint;
+	float minDist = FLT_MAX;
+	for (it = _objects.begin(); it != _objects.end(); it++) {
+		intersectionPoint = (*it)->checkIntersection(ray);
+		if (intersectionPoint != nullptr && intersectionPoint->distanceToEye < minDist) {
+			delete result;
+			result = intersectionPoint;
+			minDist = result->distanceToEye;
+		}
+	}
+	return result;
+}
+
 Grid::Grid(float voxelLength)
 	: _voxelLength(voxelLength), _boundingBox(), _voxels()
 {
@@ -116,8 +132,8 @@ Voxel * Grid::getVoxel(int x, int y, int z) {
 }
 
 BoundingBox Grid::boundingBoxForVoxel(int x, int y, int z) {
-	float maxX
-	BoundingBox voxelBox()
+	float maxX;
+	BoundingBox voxelBox();
 	return
 }
 

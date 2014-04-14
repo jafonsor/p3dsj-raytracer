@@ -19,6 +19,7 @@ public:
 	int z();
 	void addObject(Object *);
 	bool operator>(Voxel &other);
+	Intersection * checkIntersection(Ray * ray);
 };
 
 
@@ -40,7 +41,7 @@ public:
 
 	// Add the object to the the voxels the object belongs.
 	void addObject(Object *obj);
-
+	BoundingBox boundingBoxForVoxel(int x, int y, int z);
 	Intersection * checkIntersection(Ray * ray);
 };
 

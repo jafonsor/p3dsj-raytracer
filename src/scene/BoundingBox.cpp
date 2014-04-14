@@ -11,7 +11,7 @@ void BoundingBox::setDimentions(glm::vec3 & minCorner, glm::vec3 & maxCorner) {
 	_maxCorner = maxCorner;
 }
 
-Plane posPlaneX() {
+Plane BoundingBox::posPlaneX() {
 	Plane posx(
 		glm::vec3(_maxCorner.x, 0, 0),
 		glm::vec3(1,0,0)
@@ -19,7 +19,7 @@ Plane posPlaneX() {
 	return posx;
 }
 
-Plane negPlaneX() {
+Plane BoundingBox::negPlaneX() {
 	Plane negx(
 		glm::vec3(_minCorner.x, 0, 0),
 		glm::vec3(-1,0,0)
@@ -27,7 +27,7 @@ Plane negPlaneX() {
 	return negx;
 }
 
-Plane posPlaneY() {
+Plane BoundingBox::posPlaneY() {
 	Plane posy(
 		glm::vec3(0, _maxCorner.y, 0),
 		glm::vec3(0,1,0)
@@ -35,7 +35,7 @@ Plane posPlaneY() {
 	return posy;
 }
 
-Plane negPlaneY() {
+Plane BoundingBox::negPlaneY() {
 	Plane negy(
 		glm::vec3(0, _minCorner.y, 0),
 		glm::vec3(0,-1,0)
@@ -43,7 +43,7 @@ Plane negPlaneY() {
 	return negy;
 }
 
-Plane posPlaneZ() {
+Plane BoundingBox::posPlaneZ() {
 	Plane posz(
 		glm::vec3(0, 0, _maxCorner.z),
 		glm::vec3(0,0,1)
@@ -51,7 +51,7 @@ Plane posPlaneZ() {
 	return posz;
 }
 
-Plane negPlaneZ() {
+Plane BoundingBox::negPlaneZ() {
 	Plane negz(
 		glm::vec3(0, 0, _minCorner.z),
 		glm::vec3(0,0,-1)
@@ -136,8 +136,10 @@ Intersection * tMax(Plane &posPlane, Plane &negPlane, Ray *ray) {
 	Intersection * posInter = posPlane.checkIntersection(ray);
 	Intersection * negInter = negPlane.checkIntersection(ray);
 
-	if(posInter == nullptr && negInter != nullptr) return negInter;
-	if(negInter == nullptr && posInter != nullptr) return posInter;
+	if(posInter == nullptr && negInter != nullptr) 
+		return negInter;
+	if(negInter == nullptr && posInter != nullptr) 
+		return posInter;
 	if(posInter->distanceToEye > negInter->distanceToEye) {
 		return posInter;
 	} else {
@@ -146,13 +148,13 @@ Intersection * tMax(Plane &posPlane, Plane &negPlane, Ray *ray) {
 }
 
 Intersection * BoundingBox::tMaxX(Ray *ray) {
-	return tMax(posPlaneX(),negPlaneX());
+	return tMax(posPlaneX(),negPlaneX(),ray);
 }
 
 Intersection * BoundingBox::tMaxY(Ray *ray) {
-	return tMax(posPlaneY(),negPlaneY());
+	return tMax(posPlaneY(),negPlaneY(),ray);
 }
 
 Intersection * BoundingBox::tMaxZ(Ray *ray) {
-	return tMax(posPlaneZ(),negPlaneZ());
+	return tMax(posPlaneZ(),negPlaneZ(),ray);
 }
