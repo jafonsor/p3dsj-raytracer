@@ -115,6 +115,12 @@ Voxel * Grid::getVoxel(int x, int y, int z) {
 	return nullptr;
 }
 
+BoundingBox Grid::boundingBoxForVoxel(int x, int y, int z) {
+	float maxX
+	BoundingBox voxelBox()
+	return
+}
+
 Intersection * Grid::checkIntersection(Ray * ray) {
 	Intersection * inter = _boundingBox.checkIntersection(ray);
 	if(inter == nullptr) return nullptr;
@@ -127,5 +133,10 @@ Intersection * Grid::checkIntersection(Ray * ray) {
 	int stepx = (ray->direction.x > 0)? 1: -1;
 	int stepy = (ray->direction.y > 0)? 1: -1;
 	int stepz = (ray->direction.z > 0)? 1: -1;
+
+	BoundingBox voxelBox = boundingBoxForVoxel(x,y,z);
+	float tMaxX = voxelBox.tMaxX(ray);
+	float tMaxY = voxelBox.tMaxY(ray);
+	float tMaxZ = voxelBox.tMaxZ(ray);
 	
 }
