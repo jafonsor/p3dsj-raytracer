@@ -1,5 +1,6 @@
 #include "BoundingBox.h"
 #include "Plane.h"
+#include <iostream>
 
 BoundingBox::BoundingBox()
 	: _minCorner(), _maxCorner()
@@ -132,29 +133,33 @@ void BoundingBox::updateMinCorner(glm::vec3 &corner) {
 	_minCorner = glm::vec3(newMinX,newMinY,newMinZ);
 }
 
-Intersection * tMax(Plane &posPlane, Plane &negPlane, Ray *ray) {
+// the tMax and the tDelta are the return variables
+void tMaxAndTDelta(Plane &posPlane, Plane &negPlane, Ray *ray, float &tMax, float &tDelta) {
 	Intersection * posInter = posPlane.checkIntersection(ray);
 	Intersection * negInter = negPlane.checkIntersection(ray);
 
-	if(posInter == nullptr && negInter != nullptr) 
-		return negInter;
-	if(negInter == nullptr && posInter != nullptr) 
-		return posInter;
-	if(posInter->distanceToEye > negInter->distanceToEye) {
-		return posInter;
-	} else {
-		return negInter;
+	if(posInter == nullptr || negInter == nullptr) {
+		std::cout << "BoundingBox.cpp, tmax: Can not calculate tMax for a ray that doesn't intersect the voxel" << std::endl;
+		return;
 	}
+
+	if(posInter->distanceToEye > negInter->distanceToEye) {
+		tMax = posInter->distanceToEye;
+	} else {
+		tMax = negInter->distanceToEye;
+	}
+
+	tDelta = abs(posInter->distanceToEye - negInter->distanceToEye)
 }
 
-Intersection * BoundingBox::tMaxX(Ray *ray) {
-	return tMax(posPlaneX(),negPlaneX(),ray);
+void BoundingBox::tMaxAndTDeltaX(Ray *ray, float &tMaxX, float &tDeltaX) {
+	tMaxAndTDelta(posPlaneX(),negPlaneX(),ray,tMaxX,tDeltaX);
 }
 
-Intersection * BoundingBox::tMaxY(Ray *ray) {
-	return tMax(posPlaneY(),negPlaneY(),ray);
+void BoundingBox::tMaxAndTDeltaY(Ray *ray, float &tMaxY, float &tDeltaY) {
+	tMaxAndTDelta(posPlaneY(),negPlaneY(),ray,tMaxY,tDeltaY);
 }
 
-Intersection * BoundingBox::tMaxZ(Ray *ray) {
-	return tMax(posPlaneZ(),negPlaneZ(),ray);
+void BoundingBox::tMaxAndTDeltaZ(Ray *ray, float &tMaxZ, float &tDeltaZ) {
+	tMaxAndTDelta(posPlaneZ(),negPlaneZ(),ray,tMaxZ,tDeltaZ);
 }

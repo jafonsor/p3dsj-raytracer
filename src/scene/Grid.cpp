@@ -67,7 +67,7 @@ Grid::~Grid() {
 }
 
 int Grid::convertToGridCoord(float coord) {
-	return (int)floor(coord / _voxelLength);
+	return (int)ceil(coord / _voxelLength);
 }
 
 void Grid::addObject(Object *obj) {
@@ -151,8 +151,11 @@ Intersection * Grid::checkIntersection(Ray * ray) {
 	int stepz = (ray->direction.z > 0)? 1: -1;
 
 	BoundingBox voxelBox = boundingBoxForVoxel(x,y,z);
-	float tMaxX = voxelBox.tMaxX(ray);
-	float tMaxY = voxelBox.tMaxY(ray);
-	float tMaxZ = voxelBox.tMaxZ(ray);
+	float tMaxX, tDeltaX;
+	float tMaxY, tDeltaY;
+	float tMaxZ, tDeltaZ;
+	voxelBox.tMaxAndTDeltaX(ray, tMaxX, tDeltaX);
+	voxelBox.tMaxAndTDeltaY(ray, tMaxY, tDeltaY);
+	voxelBox.tMaxAndTDeltaZ(ray, tMaxZ, tDeltaZ);
 	
 }
