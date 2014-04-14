@@ -132,9 +132,19 @@ Voxel * Grid::getVoxel(int x, int y, int z) {
 }
 
 BoundingBox Grid::boundingBoxForVoxel(int x, int y, int z) {
-	float maxX;
-	BoundingBox voxelBox();
-	return
+	int xmin = (x-1) * _voxelLength;
+	int ymin = (y-1) * _voxelLength;
+	int zmin = (z-1) * _voxelLength;
+
+	int xmax = xmin + _voxelLength;
+	int ymax = ymin + _voxelLength;
+	int zmax = zmin + _voxelLength;
+
+	BoundingBox voxelBox(
+		glm::vec3(xmin,ymin,zmin),
+		glm::vec3(xmax,ymax,zmax)
+	);
+	return voxelBox;
 }
 
 Intersection * Grid::checkIntersection(Ray * ray) {

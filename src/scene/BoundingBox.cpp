@@ -149,7 +149,7 @@ void tMaxAndTDelta(Plane &posPlane, Plane &negPlane, Ray *ray, float &tMax, floa
 		tMax = negInter->distanceToEye;
 	}
 
-	tDelta = abs(posInter->distanceToEye - negInter->distanceToEye)
+	tDelta = abs(posInter->distanceToEye - negInter->distanceToEye);
 }
 
 void BoundingBox::tMaxAndTDeltaX(Ray *ray, float &tMaxX, float &tDeltaX) {
