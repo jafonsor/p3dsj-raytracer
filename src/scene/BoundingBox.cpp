@@ -11,37 +11,62 @@ void BoundingBox::setDimentions(glm::vec3 & minCorner, glm::vec3 & maxCorner) {
 	_maxCorner = maxCorner;
 }
 
-Intersection * BoundingBox::checkIntersection(Ray * ray) {
-	// create the planes of the box
+Plane posPlaneX() {
 	Plane posx(
 		glm::vec3(_maxCorner.x, 0, 0),
 		glm::vec3(1,0,0)
 	);
+	return posx;
+}
 
+Plane negPlaneX() {
 	Plane negx(
 		glm::vec3(_minCorner.x, 0, 0),
 		glm::vec3(-1,0,0)
 	);
+	return negx;
+}
 
+Plane posPlaneY() {
 	Plane posy(
 		glm::vec3(0, _maxCorner.y, 0),
 		glm::vec3(0,1,0)
 	);
+	return posy;
+}
 
+Plane negPlaneY() {
 	Plane negy(
 		glm::vec3(0, _minCorner.y, 0),
 		glm::vec3(0,-1,0)
 	);
+	return negy;
+}
 
+Plane posPlaneZ() {
 	Plane posz(
 		glm::vec3(0, 0, _maxCorner.z),
 		glm::vec3(0,0,1)
 	);
+	return posz;
+}
 
+Plane negPlaneZ() {
 	Plane negz(
 		glm::vec3(0, 0, _minCorner.z),
 		glm::vec3(0,0,-1)
 	);
+	return negz;
+}
+
+Intersection * BoundingBox::checkIntersection(Ray * ray) {
+	// create the planes of the box
+	Plane posx = posPlaneX();
+	Plane negx = negPlaneX();
+	Plane posy = posPlaneY();
+	Plane negy = negPlaneY();
+	Plane posz = posPlaneZ();
+	Plane negz = negPlaneZ();
 
 	Plane planes[] = {posx,negx,posy,negy,posz,negz};
 
@@ -105,4 +130,29 @@ void BoundingBox::updateMinCorner(glm::vec3 &corner) {
 	}
 
 	_minCorner = glm::vec3(newMinX,newMinY,newMinZ);
+}
+
+Intersection * tMax(Plane &posPlane, Plane &negPlane, Ray *ray) {
+	Intersection * posInter = posPlane.checkIntersection(ray);
+	Intersection * negInter = negPlane.checkIntersection(ray);
+
+	if(posInter == nullptr && negInter != nullptr) return negInter;
+	if(negInter == nullptr && posInter != nullptr) return posInter;
+	if(posInter->distanceToEye > negInter->distanceToEye) {
+		return posInter;
+	} else {
+		return negInter;
+	}
+}
+
+Intersection * BoundingBox::tMaxX(Ray *ray) {
+	return tMax(posPlaneX(),negPlaneX());
+}
+
+Intersection * BoundingBox::tMaxY(Ray *ray) {
+	return tMax(posPlaneY(),negPlaneY());
+}
+
+Intersection * BoundingBox::tMaxZ(Ray *ray) {
+	return tMax(posPlaneZ(),negPlaneZ());
 }

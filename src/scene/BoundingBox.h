@@ -14,6 +14,10 @@ public:
 	// Update if necessary the min and max corners to contain the 'corner'
 	void updateMaxCorner(glm::vec3 &corner);
 	void updateMinCorner(glm::vec3 &corner);
+
+	Intersection * tMaxX(Ray *ray);
+	Intersection * tMaxY(Ray *ray);
+	Intersection * tMaxZ(Ray *ray);
 };
 
 #endif
