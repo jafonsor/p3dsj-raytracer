@@ -90,14 +90,19 @@ Scene * NFFLoader::createScene(const char * fileName) {
 			Geometry * triangle = readTriangle(file);
 			scene->addObject( createObject(currentProperties, triangle) );
 		} else if ( entity == "al") {
-			//bad programing  not done
+			//bad programing  
 			float ux, uy, uz, vx, vy, vz;
+			float x, y, z; // light position
+			float r, g, b; // light color
 			int n;
-			Light * light = readLight(file);
-			file >> ux >> uy >> uz >> vx >> vy >> vz >> n;
+			file >> x >> y >> z 
+				 >> r >> g >> b
+				 >> ux >> uy >> uz 
+				 >> vx >> vy >> vz 
+				 >> n;
 			glm::vec3 u(ux, uy, uz);
 			glm::vec3 v(vx, vy, vz);
-			scene->addAreaLight(light,u,v,n);
+			scene->addAreaLight(createLight(glm::vec3(x,y,z),glm::vec3(r,g,b)),u,v,n);
 		} else {
 			// discard all characters until the end of the line
 			char line[200];
@@ -143,7 +148,6 @@ Camera * readCamera(std::istream &in) {
 		resX, resY
 	);
 }
-
 
 Light * readLight(std::istream &in) {
 	float x, y, z; // light position

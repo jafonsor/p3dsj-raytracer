@@ -123,7 +123,7 @@ void sequencial_draw_scene() {
 // Draw function by primary ray casting from the eye towards the scene's objects 
 void drawScene() 
 { 
-	// multi_threaded_draw_scene();
+	//multi_threaded_draw_scene();
 	sequencial_draw_scene();
 
 	pixelDrawer->print();

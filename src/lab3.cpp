@@ -74,8 +74,8 @@ int main(int argc, char *argv[]) {
 	renderScene(&antialising, scene->resX(), scene->resY());
 	/**/
 	Raytracer raytracer(scene);
-	DepthOfField depthOfField(&raytracer, 2.0f,0.3f,10);
-	renderScene(&depthOfField, scene->resX(), scene->resY());
+	DepthOfField depthOfField(&raytracer, 2.0f,0.3f,2);
+	renderScene(&raytracer, scene->resX(), scene->resY());
 	/**/
 	return 0;
 }
