@@ -16,6 +16,8 @@ public:
 	Object(glm::vec3 color,float kd, float ks, float shininess,Geometry * geometry);
 	Object(glm::vec3 color, float kd, float ks, float shininess, float transmittance, float indexOfRefraction, Geometry * geometry);
 	Intersection * checkIntersection(Ray * ray);
+	glm::vec3 getMaxCorner();
+	glm::vec3 getMinCorner();
 };
 
 #endif

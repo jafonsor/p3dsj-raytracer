@@ -12,6 +12,10 @@ class Sphere : public Geometry {
 public:
 	Sphere(float x, float y, float z, float r);
 	Intersection * checkIntersection(Ray * ray);
+
+	// Bounding corners of the geometry.
+	glm::vec3 getMaxCorner();
+	glm::vec3 getMinCorner();
 };
 
 #endif

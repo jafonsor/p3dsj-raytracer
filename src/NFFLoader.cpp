@@ -85,7 +85,7 @@ Scene * NFFLoader::createScene(const char * fileName) {
 			scene->addObject( createObject(currentProperties, sphere) );
 		} else if( entity == "pl" ) {
 			Geometry * plane = readPlane(file);
-			scene->addObject( createObject(currentProperties, plane) );
+			scene->addPlane( createObject(currentProperties, plane) );
 		} else if( entity == "p" ) {
 			Geometry * triangle = readTriangle(file);
 			scene->addObject( createObject(currentProperties, triangle) );

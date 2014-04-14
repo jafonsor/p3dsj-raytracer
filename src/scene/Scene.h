@@ -6,9 +6,11 @@
 #include "Intersection.h"
 #include "Camera.h"
 #include "Light.h"
+#include "Grid.h"
 
 class Scene {
-	std::vector<Object*> _objects;
+	Grid _grid;
+	std::vector<Object*> _planes;
 	std::vector<Light *> _lights;
 	Camera * _camera;
 	glm::vec3 _background;
@@ -20,6 +22,7 @@ public:
 	Intersection * checkIntersection(Ray * ray);
 
 	void addObject(Object * object);
+	void addPlane(Object * plane);
 	void addLight(Light * light);
 	void addAreaLight(Light * areaLight, glm::vec3 u, glm::vec3 v, int n);
 	void setCamera(Camera * camera);

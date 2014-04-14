@@ -8,6 +8,10 @@ class Geometry {
 	// Returns null if the ray doesn't intersect the object
 public:
 	virtual Intersection * checkIntersection(Ray * ray) = 0;
+
+	// Bounding corners of the geometry.
+	virtual glm::vec3 getMaxCorner();
+	virtual glm::vec3 getMinCorner();
 };
 
 #endif

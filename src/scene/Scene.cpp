@@ -1,27 +1,35 @@
 #include "Scene.h"
 #include <float.h>
 
-Scene::Scene() : _objects(), _lights(), _background(0.0f) {}
+Scene::Scene() : _grid(), _lights(), _background(0.0f) {}
 
 // If no intersection was found returns null
 Intersection * Scene::checkIntersection(Ray * ray) {
-	std::vector<Object*>::iterator it;
-	Intersection * intersectionPoint;
-	Intersection * result = nullptr;
-	float minDist = FLT_MAX;
-	for(it = _objects.begin(); it != _objects.end(); it++) {
-		intersectionPoint = (*it)->checkIntersection(ray);
-		if(intersectionPoint != nullptr && intersectionPoint->distanceToEye < minDist) {
-			delete result;
-			result = intersectionPoint;
-			minDist = result->distanceToEye;
+	Intersection * result = _grid.checkIntersection(ray);
+	// If the ray doesn't intersect any object on the grid
+	// test an intersection with the planes.
+	if(result == nullptr) {
+		std::vector<Object*>::iterator it;
+		Intersection * intersectionPoint;
+		float minDist = FLT_MAX;
+		for(it = _planes.begin(); it != _planes.end(); it++) {
+			intersectionPoint = (*it)->checkIntersection(ray);
+			if(intersectionPoint != nullptr && intersectionPoint->distanceToEye < minDist) {
+				delete result;
+				result = intersectionPoint;
+				minDist = result->distanceToEye;
+			}
 		}
 	}
 	return result;
 }
 
 void Scene::addObject(Object * object) {
-	_objects.push_back(object);
+	_grid.addObject(object);
+}
+
+void Scene::addPlane(Object * plane) {
+	_planes.push_back(plane);
 }
 
 void Scene::addLight(Light * light) {

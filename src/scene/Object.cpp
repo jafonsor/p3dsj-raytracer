@@ -18,3 +18,11 @@ Intersection * Object::checkIntersection(Ray * ray) {
 		result->object = this;
 	return result;
 }
+
+glm::vec3 Object::getMaxCorner() {
+	return _geometry->getMaxCorner();
+}
+
+glm::vec3 Object::getMinCorner() {
+	return _geometry->getMinCorner();
+}
