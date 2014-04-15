@@ -3,13 +3,13 @@
 
 Plane::Plane(glm::vec3 v0, glm::vec3 v1, glm::vec3 v2) {
 	_normal = glm::normalize( glm::cross(  v1 - v0, v2 - v0 ) );
-	_d = - glm::dot( v0, _normal );
+	_d =  glm::dot( -v0, _normal );
 }
 
 Plane::Plane(glm::vec3 p0, glm::vec3 normal)
 	: _normal(normal)
 {
-	_d = - glm::dot( p0, _normal );
+	_d = glm::dot( -p0, _normal );
 }
 #define DELTA 0.00001
 
@@ -20,11 +20,11 @@ Intersection * Plane::checkIntersection(Ray * ray) {
 		return nullptr;
 	} else {
 		float auxA = _d + glm::dot( _normal, ray->point );
-		float t = -  auxA / dotNormalDirection;
-		if(t < 0) {
+		float t = - auxA / dotNormalDirection;
+		/*if(t < 0) {
 			// the plane is behind the camera
 			return nullptr;
-		}
+		}*/
 		Intersection * intersection = new Intersection;
 		intersection->position = ray->f(t);
 		intersection->normal   = _normal;

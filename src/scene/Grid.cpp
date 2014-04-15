@@ -156,7 +156,10 @@ Intersection * Grid::TraverseGrid(int x, int y, int z, Ray * ray) {
 	voxelBox.tMaxAndTDeltaY(ray, &tMaxY, &tDeltaY);
 	voxelBox.tMaxAndTDeltaZ(ray, &tMaxZ, &tDeltaZ);
 	do {
-		result = getVoxel(x, y, z)->checkIntersection(ray);
+		Voxel * voxel = getVoxel(x, y, z);
+		if (voxel != nullptr) {
+			result = voxel->checkIntersection(ray);
+		}
 		if (result != nullptr)
 			return result;
 

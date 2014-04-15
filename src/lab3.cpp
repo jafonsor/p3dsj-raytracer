@@ -59,6 +59,7 @@ void testPlane() {
 	ray.point = glm::vec3(1.72787714,-1.38225114,-0.323965728);
 	ray.direction = glm::vec3(0.222411022,0.722149551,0.655006409);
 	inter = p2.checkIntersection(&ray);
+
 	assert(inter != nullptr);
 }
 
@@ -163,7 +164,7 @@ int main(int argc, char *argv[]) {
 	/** /
 	Scene * scene = new Scene();
 	test(scene);
-	/**/
+	/** /
 	testPlane();
 	testTriangle();
 	/** /

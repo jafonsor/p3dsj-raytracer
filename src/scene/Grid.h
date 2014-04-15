@@ -31,7 +31,7 @@ class Grid {
 	void addVoxel(int x, int y, int z, Object * obj);
 
 public:
-	Grid(float voxelLength = 1.0f);
+	Grid(float voxelLength = 0.10f);
 
 	// Converts a coordenate to the grid coordenate.
 	// It's the same for all axis because voxels are cubes.
