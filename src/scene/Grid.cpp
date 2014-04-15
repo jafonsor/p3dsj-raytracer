@@ -32,7 +32,7 @@ bool Voxel::operator>(Voxel &other) {
 
 Intersection * Voxel::checkIntersection(Ray * ray) {
 	std::list<Object*>::iterator it;
-	Intersection * result;
+	Intersection * result = nullptr;
 	Intersection * intersectionPoint;
 	float minDist = FLT_MAX;
 	for (it = _objects.begin(); it != _objects.end(); it++) {
@@ -137,25 +137,81 @@ BoundingBox Grid::boundingBoxForVoxel(int x, int y, int z) {
 	return voxelBox;
 }
 
-Intersection * Grid::checkIntersection(Ray * ray) {
-	Intersection * inter = _boundingBox.checkIntersection(ray);
-	if(inter == nullptr) return nullptr;
+Intersection * Grid::TraverseGrid(int x, int y, int z, Ray * ray) {
+	intersection *  result = nullptr;
 
-	// initialize
-	int x = convertToGridCoord(inter->position.x);
-	int y = convertToGridCoord(inter->position.y);
-	int z = convertToGridCoord(inter->position.z);
+	int stepx = (ray->direction.x > 0) ? 1 : -1;
+	int stepy = (ray->direction.y > 0) ? 1 : -1;
+	int stepz = (ray->direction.z > 0) ? 1 : -1;
 
-	int stepx = (ray->direction.x > 0)? 1: -1;
-	int stepy = (ray->direction.y > 0)? 1: -1;
-	int stepz = (ray->direction.z > 0)? 1: -1;
+	int justOutX = (stepx > 0) ? convertToGridCoord(_boundingBox.getMaxCorner().x) + 1 : convertToGridCoord(_boundingBox.getMinCorner().x) - 1;
+	int justOutY = (stepy > 0) ? convertToGridCoord(_boundingBox.getMaxCorner().y) + 1 : convertToGridCoord(_boundingBox.getMinCorner().y) - 1;
+	int justOutZ = (stepz > 0) ? convertToGridCoord(_boundingBox.getMaxCorner().z) + 1 : convertToGridCoord(_boundingBox.getMinCorner().z) - 1;
 
-	BoundingBox voxelBox = boundingBoxForVoxel(x,y,z);
+	BoundingBox voxelBox = boundingBoxForVoxel(x, y, z);
 	float tMaxX, tDeltaX;
 	float tMaxY, tDeltaY;
 	float tMaxZ, tDeltaZ;
 	voxelBox.tMaxAndTDeltaX(ray, &tMaxX, &tDeltaX);
 	voxelBox.tMaxAndTDeltaY(ray, &tMaxY, &tDeltaY);
 	voxelBox.tMaxAndTDeltaZ(ray, &tMaxZ, &tDeltaZ);
-	
+	do {
+		result = getVoxel(x, y, z)->checkIntersection(ray);
+		if (result != nullptr)
+			return result;
+
+		if (tMaxX < tMaxY) {
+			if (tMaxX < tMaxZ) {
+				x = x + stepx;
+				if (x >= justOutX) {
+					return nullptr;
+				}
+				tMaxX += tDeltaX;
+			} else {
+				z += stepz;
+				if (z >= justOutZ) {
+					return nullptr;
+				}
+				tMaxZ += tDeltaZ;
+			}
+		} else {
+			if (tMaxY < tMaxZ) {
+				y += stepy;
+				if (y >= justOutY) {
+					return nullptr;
+				}
+				tMaxY += tDeltaY;
+			} else {
+				z += stepz;
+				if (z >= justOutZ) {
+					return nullptr;
+				}
+				tMaxZ += tDeltaZ;
+			}
+		}
+	} while (result == nullptr);
+	return result;
 }
+
+Intersection * Grid::checkIntersection(Ray * ray) {
+	float epsilon = 1E-3;
+	Intersection * inter = _boundingBox.checkIntersection(ray);
+	if(inter == nullptr) return nullptr;
+	
+	int x;
+	int y;
+	int z;
+
+	if (_boundingBox.insideBounds(ray->point)) {
+		x = convertToGridCoord(ray->point.x);
+		y = convertToGridCoord(ray->point.y);
+		z = convertToGridCoord(ray->point.z);
+	}
+	else {
+		x = convertToGridCoord(inter->position.x + ray->direction.x * epsilon);
+		y = convertToGridCoord(inter->position.y + ray->direction.y * epsilon);
+		z = convertToGridCoord(inter->position.z + ray->direction.z * epsilon);
+	}
+
+	TraverseGrid(x,y,z,ray);
+} 

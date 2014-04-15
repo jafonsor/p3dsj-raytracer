@@ -84,7 +84,7 @@ Intersection * BoundingBox::checkIntersection(Ray * ray) {
 		Intersection * inter = planes[i].checkIntersection(ray);
 		// Check if the intersection position is within the dimentions of
 		// the bounding box.
-		if(inter != nullptr && insideBounds(inter->position)) {
+		if(inter != nullptr && insideBounds(inter->position, i/2)) {
 
 			// Check if it is the closest intersection
 			if(minInter == nullptr 
@@ -102,9 +102,18 @@ Intersection * BoundingBox::checkIntersection(Ray * ray) {
 	return minInter;
 }
 
-bool BoundingBox::insideBounds(glm::vec3 p) {
-	return p.x <= _maxCorner.x && p.y <= _maxCorner.y && p.z <= _maxCorner.z
-	       && p.x >= _minCorner.x && p.y >= _minCorner.y && p.z <= _maxCorner.z;
+
+bool BoundingBox::insideBounds(glm::vec3 p, int axis) {
+	if (axis == 0) {
+		return p.y <= _maxCorner.y && p.y >= _minCorner.x && p.z <= _maxCorner.z && p.z >= _minCorner.z;
+	} else if (axis == 1) {
+		return p.x <= _maxCorner.x && p.x >= _minCorner.x && p.z <= _maxCorner.z && p.z >= _minCorner.z;
+	} else if (axis == 2){
+		return p.y <= _maxCorner.y && p.y >= _minCorner.y && p.x <= _maxCorner.x && p.x >= _minCorner.x;
+	} else {
+		return p.x <= _maxCorner.x && p.y <= _maxCorner.y && p.z <= _maxCorner.z
+			&& p.x >= _minCorner.x && p.y >= _minCorner.y && p.z <= _maxCorner.z;
+	}
 }
 
 void BoundingBox::updateMaxCorner(glm::vec3 &corner) {

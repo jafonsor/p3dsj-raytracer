@@ -86,8 +86,10 @@
     <ClInclude Include="src\PixelDrawer.h" />
     <ClInclude Include="src\Raytracer.h" />
     <ClInclude Include="src\RecursiveAntialising.h" />
+    <ClInclude Include="src\scene\BoundingBox.h" />
     <ClInclude Include="src\scene\Camera.h" />
     <ClInclude Include="src\scene\Geometry.h" />
+    <ClInclude Include="src\scene\Grid.h" />
     <ClInclude Include="src\scene\Light.h" />
     <ClInclude Include="src\scene\Object.h" />
     <ClInclude Include="src\scene\Intersection.h" />
@@ -105,7 +107,9 @@
     <ClCompile Include="src\PixelDrawer.cpp" />
     <ClCompile Include="src\Raytracer.cpp" />
     <ClCompile Include="src\RecursiveAntialising.cpp" />
+    <ClCompile Include="src\scene\BoundingBox.cpp" />
     <ClCompile Include="src\scene\Camera.cpp" />
+    <ClCompile Include="src\scene\Grid.cpp" />
     <ClCompile Include="src\scene\Light.cpp" />
     <ClCompile Include="src\scene\Object.cpp" />
     <ClCompile Include="src\scene\Plane.cpp" />

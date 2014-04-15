@@ -79,6 +79,14 @@ void testGrid() {
 	assert(v1 != nullptr);
 	std::list<Object*> objects = v1->getObjects();
 	assert(objects.front() == obj);
+
+	std::cout << "Test voxel 0.1" << std::endl;
+	Ray ray;
+	ray.direction = glm::vec3(-1, 0, 0);
+	ray.point = glm::vec3(1.5f, 0.1f, 0.1f);
+	Intersection * inter = g.checkIntersection(&ray);
+	assert(inter != nullptr);
+
 }
 
 void testBoundingBox() {
@@ -126,16 +134,16 @@ int main(int argc, char *argv[]) {
 	test(scene);
 	/** /
 	testTriangle();
-	/**/
+	/** /
 	testGrid();
 	testBoundingBox();
-	/** /
+	/**/
 	Scene * scene = NFFLoader::createScene(fileName);
 	/** /
 	Raytracer raytracer(scene);
 	RecursiveAntialising antialising(&raytracer,8);
 	renderScene(&antialising, scene->resX(), scene->resY());
-	/** /
+	/**/
 	Raytracer raytracer(scene);
 	DepthOfField depthOfField(&raytracer, 2.0f,0.3f,2);
 	renderScene(&raytracer, scene->resX(), scene->resY());

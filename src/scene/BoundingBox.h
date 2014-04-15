@@ -33,7 +33,7 @@ public:
 	glm::vec3 getMinCorner();
 
 	// Checks if the point is inside the bounding box
-	bool insideBounds(glm::vec3 point);
+	bool insideBounds(glm::vec3 point, int axis = 3);
 };
 
 #endif

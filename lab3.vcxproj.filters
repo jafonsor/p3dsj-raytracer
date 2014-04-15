@@ -63,6 +63,12 @@
     <ClInclude Include="src\DepthOfField.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\BoundingBox.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\Grid.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\scene\Object.cpp">
@@ -105,6 +111,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\PixelDrawer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\BoundingBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

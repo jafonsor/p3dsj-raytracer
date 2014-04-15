@@ -36,6 +36,9 @@ public:
 	// Converts a coordenate to the grid coordenate.
 	// It's the same for all axis because voxels are cubes.
 	int convertToGridCoord(float coord);
+	
+	bool pointInsideGrid(glm::vec3 point);
+	Intersection * TraverseGrid(int x,int y,int z, Ray * ray);
 
 	Voxel * getVoxel(int x, int y, int z);
 
