@@ -31,6 +31,37 @@ void printVec3(glm::vec3 vec) {
 	std::cout << vec.x << ", " << vec.y << ", " << vec.z << std::endl;
 }
 
+void testPlane() {
+	std::cout << "Plane tests" << std::endl;
+	Ray ray;
+	ray.point = glm::vec3(2,0,0);
+	ray.direction = glm::vec3(-1,0,0);
+	Intersection * inter;
+
+	Plane p1(
+		glm::vec3(0,0,0),
+		glm::vec3(1,0,0)
+	);
+	inter = p1.checkIntersection(&ray);
+	assert(inter != nullptr);
+
+	Plane p2(
+		glm::vec3(0,0,0),
+		glm::vec3(-1,0,0)
+	);
+	inter = p2.checkIntersection(&ray);
+	assert(inter != nullptr);
+
+	Plane p3(
+		glm::vec3(-0.2f,0,0),
+		glm::vec3(-1,0,0)
+	);
+	ray.point = glm::vec3(1.72787714,-1.38225114,-0.323965728);
+	ray.direction = glm::vec3(0.222411022,0.722149551,0.655006409);
+	inter = p2.checkIntersection(&ray);
+	assert(inter != nullptr);
+}
+
 void testTriangle() {
 	std::cout << "Test triangle 1" << std::endl;
 	Ray ray1;
@@ -132,7 +163,8 @@ int main(int argc, char *argv[]) {
 	/** /
 	Scene * scene = new Scene();
 	test(scene);
-	/** /
+	/**/
+	testPlane();
 	testTriangle();
 	/** /
 	testGrid();
