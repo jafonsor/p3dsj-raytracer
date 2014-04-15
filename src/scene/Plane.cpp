@@ -6,7 +6,7 @@ Plane::Plane(glm::vec3 v0, glm::vec3 v1, glm::vec3 v2) {
 	_d = - glm::dot( v0, _normal );
 }
 
-Plane::Plane(glm::vec3 &p0, glm::vec3 &normal)
+Plane::Plane(glm::vec3 p0, glm::vec3 normal)
 	: _normal(normal)
 {
 	_d = - glm::dot( p0, _normal );

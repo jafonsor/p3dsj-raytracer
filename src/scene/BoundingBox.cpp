@@ -7,6 +7,13 @@ BoundingBox::BoundingBox()
 {
 	// emtpy
 }
+
+BoundingBox::BoundingBox(glm::vec3 minCorner, glm::vec3 maxCorner)
+	: _minCorner(minCorner), _maxCorner(maxCorner)
+{
+	// empty
+}
+
 void BoundingBox::setDimentions(glm::vec3 & minCorner, glm::vec3 & maxCorner) {
 	_minCorner = minCorner;
 	_maxCorner = maxCorner;
@@ -77,10 +84,8 @@ Intersection * BoundingBox::checkIntersection(Ray * ray) {
 		Intersection * inter = planes[i].checkIntersection(ray);
 		// Check if the intersection position is within the dimentions of
 		// the bounding box.
-		if(inter != nullptr
-			&& inter->position[i/2] < _maxCorner[i/2]
-			&& inter->position[i/2] > _minCorner[i/2])
-		{
+		if(inter != nullptr && insideBounds(inter->position)) {
+
 			// Check if it is the closest intersection
 			if(minInter == nullptr 
 			   || minInter->distanceToEye > inter->distanceToEye)
@@ -95,6 +100,11 @@ Intersection * BoundingBox::checkIntersection(Ray * ray) {
 	}
 
 	return minInter;
+}
+
+bool BoundingBox::insideBounds(glm::vec3 p) {
+	return p.x <= _maxCorner.x && p.y <= _maxCorner.y && p.z <= _maxCorner.z
+	       && p.x >= _minCorner.x && p.y >= _minCorner.y && p.z <= _maxCorner.z;
 }
 
 void BoundingBox::updateMaxCorner(glm::vec3 &corner) {
@@ -134,7 +144,7 @@ void BoundingBox::updateMinCorner(glm::vec3 &corner) {
 }
 
 // the tMax and the tDelta are the return variables
-void tMaxAndTDelta(Plane &posPlane, Plane &negPlane, Ray *ray, float &tMax, float &tDelta) {
+void tMaxAndTDelta(Plane posPlane, Plane negPlane, Ray *ray, float *tMax, float *tDelta) {
 	Intersection * posInter = posPlane.checkIntersection(ray);
 	Intersection * negInter = negPlane.checkIntersection(ray);
 
@@ -144,22 +154,30 @@ void tMaxAndTDelta(Plane &posPlane, Plane &negPlane, Ray *ray, float &tMax, floa
 	}
 
 	if(posInter->distanceToEye > negInter->distanceToEye) {
-		tMax = posInter->distanceToEye;
+		*tMax = posInter->distanceToEye;
 	} else {
-		tMax = negInter->distanceToEye;
+		*tMax = negInter->distanceToEye;
 	}
 
-	tDelta = abs(posInter->distanceToEye - negInter->distanceToEye);
+	*tDelta = abs(posInter->distanceToEye - negInter->distanceToEye);
 }
 
-void BoundingBox::tMaxAndTDeltaX(Ray *ray, float &tMaxX, float &tDeltaX) {
+void BoundingBox::tMaxAndTDeltaX(Ray *ray, float *tMaxX, float *tDeltaX) {
 	tMaxAndTDelta(posPlaneX(),negPlaneX(),ray,tMaxX,tDeltaX);
 }
 
-void BoundingBox::tMaxAndTDeltaY(Ray *ray, float &tMaxY, float &tDeltaY) {
+void BoundingBox::tMaxAndTDeltaY(Ray *ray, float *tMaxY, float *tDeltaY) {
 	tMaxAndTDelta(posPlaneY(),negPlaneY(),ray,tMaxY,tDeltaY);
 }
 
-void BoundingBox::tMaxAndTDeltaZ(Ray *ray, float &tMaxZ, float &tDeltaZ) {
+void BoundingBox::tMaxAndTDeltaZ(Ray *ray, float *tMaxZ, float *tDeltaZ) {
 	tMaxAndTDelta(posPlaneZ(),negPlaneZ(),ray,tMaxZ,tDeltaZ);
+}
+
+glm::vec3 BoundingBox::getMaxCorner() {
+	return _maxCorner;
+}
+
+glm::vec3 BoundingBox::getMinCorner() {
+	return _minCorner;
 }

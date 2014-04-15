@@ -5,13 +5,13 @@
 #include "Ray.h"
 
 class Geometry {
-	// Returns null if the ray doesn't intersect the object
 public:
+	// Returns null if the ray doesn't intersect the object
 	virtual Intersection * checkIntersection(Ray * ray) = 0;
 
 	// Bounding corners of the geometry.
-	virtual glm::vec3 getMaxCorner();
-	virtual glm::vec3 getMinCorner();
+	virtual glm::vec3 getMaxCorner() = 0;
+	virtual glm::vec3 getMinCorner() = 0;
 };
 
 #endif

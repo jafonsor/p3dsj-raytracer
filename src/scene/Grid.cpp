@@ -11,13 +11,6 @@ Voxel::Voxel(int x, int y, int z)
 	// empty
 }
 
-Voxel::~Voxel() {
-	std::list<Object*>::iterator it;
-	for(it = _objects.begin(); it != _objects.end(); it++) {
-		delete *it;
-	}
-}
-
 int Voxel::x() { return _x; }
 int Voxel::y() { return _y; }
 int Voxel::z() { return _z; }
@@ -27,13 +20,13 @@ void Voxel::addObject(Object * obj) {
 
 bool Voxel::operator>(Voxel &other) {
 	if(x() > other.x()) {
-		return false;
-	} else if(x() == other.x() && y() > other.y()) {
-		return false;
-	} else if(y() == other.y() && z() > other.z()) {
-		return false;
-	} else {
 		return true;
+	} else if(x() == other.x() && y() > other.y()) {
+		return true;
+	} else if(y() == other.y() && z() > other.z()) {
+		return true;
+	} else {
+		return false;
 	}
 }
 
@@ -53,17 +46,14 @@ Intersection * Voxel::checkIntersection(Ray * ray) {
 	return result;
 }
 
+std::list<Object*> Voxel::getObjects() {
+	return _objects;
+}
+
 Grid::Grid(float voxelLength)
 	: _voxelLength(voxelLength), _boundingBox(), _voxels()
 {
 	// empty
-}
-
-Grid::~Grid() {
-	std::list<Voxel*>::iterator it;
-	for(it = _voxels.begin(); it != _voxels.end(); it++) {
-		delete *it;
-	}
 }
 
 int Grid::convertToGridCoord(float coord) {
@@ -113,7 +103,7 @@ void Grid::addVoxel(int x, int y, int z, Object * obj) {
 					break;
 				}
 			}
-			std::cout << "A voxel was not added" << std::endl;
+			_voxels.push_back(newVoxel);
 		}
 	}
 }
@@ -164,8 +154,8 @@ Intersection * Grid::checkIntersection(Ray * ray) {
 	float tMaxX, tDeltaX;
 	float tMaxY, tDeltaY;
 	float tMaxZ, tDeltaZ;
-	voxelBox.tMaxAndTDeltaX(ray, tMaxX, tDeltaX);
-	voxelBox.tMaxAndTDeltaY(ray, tMaxY, tDeltaY);
-	voxelBox.tMaxAndTDeltaZ(ray, tMaxZ, tDeltaZ);
+	voxelBox.tMaxAndTDeltaX(ray, &tMaxX, &tDeltaX);
+	voxelBox.tMaxAndTDeltaY(ray, &tMaxY, &tDeltaY);
+	voxelBox.tMaxAndTDeltaZ(ray, &tMaxZ, &tDeltaZ);
 	
 }
